@@ -1,0 +1,698 @@
+/* Reset default margin and padding */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  
+  /* Fixed background that won't turn white on scroll */
+  background: linear-gradient(180deg, var(--page-start), var(--page-end));
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  margin: 0;
+  
+  color: var(--text-color);
+}
+
+#main-content {
+  width: 100%;
+  min-height: 100vh;
+  background: transparent;
+}
+
+.logo img {
+  position: relative;
+  right: 20px;
+}
+
+.login-button {
+  position: relative;
+  left: 20px;
+}
+
+/* Body Styling */
+.blur-background {
+  filter: blur(10px);
+  transition: filter 0.3s ease;
+}
+
+.search-container { margin-top: 1rem; }
+
+/* Image container */
+.container {
+  width: 100%;
+  height: 100%;
+  max-width: 1200px;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Left side - Buttons */
+.buttons {
+  right: -1px;
+  bottom: 0px;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  padding: 20px;
+  border-right: 1px solid #ddd;
+}
+
+@media (max-width: 992px) {
+  .buttons { position: static; justify-content: flex-start; padding: 0.5rem 0; border-right: none; }
+  .buttons button { padding: 10px 14px; }
+}
+
+.buttons button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buttons button:hover {
+  color: white;
+  background-color: #535461;
+  transform: scale(1.2);
+}
+
+.buttons a {
+  color: #333;
+  text-decoration: none; /* Remove underline */
+}
+
+/* Right side - Image */
+.image.active {
+  position: relative; 
+  width: 100%; 
+  min-height: 360px; 
+  max-height: 75vh;
+  overflow: hidden; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  border: 1px solid #ccc; 
+}
+
+.image.active img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+
+@media (max-width: 768px) {
+  .image.active { min-height: 220px; max-height: none; }
+}
+
+.image.active img { object-position: center; }
+
+/* Navigation buttons */
+.nav-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.507);
+  color: #fff;
+  border: none;
+  padding: 20px;
+  font-size: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: none; 
+  border-radius: 50px;
+}
+
+.nav-button:hover {
+  background-color: rgba(0, 0, 0, 0.902);
+}
+
+.nav-button.left {
+  left: 10px;
+}
+
+.nav-button.right {
+  right: 10px;
+}
+
+/* Show navigation buttons when active */
+.image.active .nav-button {
+  display: block;
+}
+
+/* Styling for containers - side-by-side, aligned to the top, expands up to 1850px */
+#container1 {
+  display: flex;
+  flex-direction: row; 
+  flex-wrap: nowrap;   
+  gap: 2rem;
+  margin: 2.5rem auto;
+  max-width: 1850px;       /* Allows it to grow wide on big screens */
+  width: 95%;              /* Fluid width */
+  align-items: flex-start; /* Aligns both the left and right items cleanly at the top */
+  position: relative;
+}
+
+#container1 .left-container { 
+  width: 65%;              /* Gives a bit more room to the image gallery like in your screenshot */
+  flex: 0 0 65%;
+  padding: 0;              /* Removes extra padding that might throw off alignment */
+}
+
+#container1 .right-container { 
+  width: 35%;              /* Balances the side column */
+  flex: 0 0 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0;              /* Removes extra padding */
+}
+
+/* When screen gets smaller than 992px, stack them on top of each other */
+@media (max-width: 992px) {
+  #container1 { 
+    flex-direction: column; 
+  }
+  #container1 .left-container, 
+  #container1 .right-container { 
+    width: 100%; 
+    flex: 1 1 100%;
+  }
+}
+
+#container1 .right-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+#container2 {
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap; 
+  margin-bottom: 2rem;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  #container2 { gap: 1rem; }
+}
+
+/* Gallery wrapper */
+.gallery-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Make image take up the size of its parent div */
+#container1 .left-container img {
+  width: 100%; 
+  height: auto; 
+  object-fit: cover; 
+}
+
+#description {
+  position: relative;
+  top: 0;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  margin: 0px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: var(--clr-accent);
+  color: var(--clr-white);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+}
+
+#description h2 {
+  font-size: 1.8em;
+  color: #000000;
+  margin: 0 0 10px 0;
+}
+
+#description p {
+  font-size: 1em;
+  color: #000000;
+  margin: 5px 0;
+  line-height: 1.6;
+}
+
+#description h3 {
+  font-size: 1.2em;
+  color: #000000;
+  margin: 15px 0 10px 0;
+}
+
+#description ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  color: #000000;
+  margin: 0;
+}
+
+#description li {
+  margin: 5px 0;
+}
+
+#contactDetails {
+  padding: 20px;
+  width: 100%;
+  position: relative;
+  top: 20px;
+  border-radius: 50px;
+  text-align: center;
+}
+
+/* Heading styling */
+#contactDetails h1 {
+  top: -10px;
+  position: relative;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+/* Button container styling */
+#contactDetails .button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Button styling */
+#contactDetails button {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  text-align: center;
+  padding: 25px 85px;
+  border-radius: 50px;
+  font-weight: bold;
+  border: none;
+  background-color: var(--clr-primary);
+  color: var(--clr-white);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#contactDetails button:hover {
+  background-color: color-mix(in srgb, var(--text-color) 85%, black 15%);
+}
+
+/* Left container */
+.left-container {
+  width: 60%;
+  padding: 20px;
+}
+
+/* Modal styling */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.modal img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 8px;
+}
+
+/* Right container */
+.right-container {
+  width: 40%;
+  padding: 20px;
+}
+
+#propertyOption {
+  background-color: var(--text-color);
+  padding: 50px;
+  margin-bottom: 100px;
+  color: var(--clr-white);
+}
+
+/* Buttons Container */
+.buttons-container {
+  display: flex;
+  justify-content: center; 
+  gap: 1rem; 
+  width: 100%;
+  max-width: 900px; 
+  margin: 0 auto 30px; 
+  padding: 0 1rem; 
+}
+
+.buttons-container .button {
+  flex: 1 1 160px; 
+  max-width: 220px;
+}
+
+/* Button Styling */
+.button {
+  padding: 15px 30px; 
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  flex: 1; 
+  max-width: 150px; 
+  text-align: center; 
+}
+
+/* Refurbish Button */
+.button.refurbish {
+  background-color: var(--clr-secondary);
+}
+
+.button.refurbish:hover {
+  background-color: color-mix(in srgb, var(--clr-secondary) 80%, black 20%);
+  transform: scale(1.05);
+}
+
+/* Demolish Button */
+.button.demolish {
+  background-color: var(--clr-danger); 
+}
+
+.button.demolish:hover {
+  background-color: color-mix(in srgb, var(--clr-danger) 80%, black 20%);
+  transform: scale(1.05);
+}
+
+/* Build Button */
+.button.build {
+  background-color: var(--clr-warning); 
+  color: var(--text-color);
+}
+
+.button.build:hover {
+  background-color: color-mix(in srgb, var(--clr-warning) 85%, black 15%);
+  transform: scale(1.05);
+}
+
+/* Container Button */
+.button.container {
+  background-color: var(--clr-primary); 
+}
+
+.button.container:hover {
+  background-color: color-mix(in srgb, var(--clr-primary) 85%, black 15%);
+  transform: scale(1.05);
+}
+
+.buttons-container .button.container {
+  background-color: var(--clr-primary) !important;
+  color: var(--clr-white) !important;
+}
+
+/* Tables Container */
+.tables-container {
+  display: flex;
+  justify-content: space-between;
+  width: 90%; 
+  margin: 100px auto 100px; 
+  gap: 150px; 
+}
+
+/* Table Styling */
+.item-table {
+  border-collapse: collapse;
+  width: 48%; 
+  margin-bottom: 20px; 
+  border: none; 
+}
+
+.item-table th, .item-table td {
+  padding: 12px; 
+  text-align: left;
+  font-size: 20px; 
+  border: none; 
+}
+
+.item-table th {
+  background-color: #f2f2f2;
+  font-weight: bold; 
+}
+
+/* Styling for the navigation links */
+h3 {
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  font-weight: normal;
+  color: #333;
+  display: inline-block;
+  margin-right: 20px; 
+}
+
+#result-chart-container {
+  margin: 0px auto;
+  gap: 20px; 
+  width: 50%;
+}
+
+.result {
+  top: 40px;
+  position: relative;
+}
+
+/* Styling for the result containers */
+/* Styling for the result containers */
+#result {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 24px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 420px;
+  box-sizing: border-box;
+  
+  /* This centers the box horizontally and adds 20px space below it */
+  margin: 0 auto 20px auto; 
+}
+
+#result2 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 24px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 480px;
+  box-sizing: border-box;
+  
+  /* This centers the box horizontally and adds 20px space below it */
+  margin: 0 auto 20px auto; 
+}
+/* Styling for each cost item */
+.cost-item {
+  display: flex;
+  justify-content: space-between; 
+}
+
+.cost-item .label {
+  font-weight: bold;
+}
+
+.cost-item .value {
+  color: #333;
+  font-weight: bold;
+}
+
+.cost-item.total {
+  margin-top: 15px;
+  font-weight: bold;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+
+/* ------------------------------------------- */
+/* CHARTS SECTION - DESKTOP LAYOUT             */
+/* ------------------------------------------- */
+.charts-section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: row;       
+  gap: 4.5rem;
+  justify-content: space-between; 
+  align-items: center;       
+  flex-wrap: wrap;
+}
+
+.charts-section .entry {
+  flex: 1 1 45%;
+  max-width: 580px; 
+  box-sizing: border-box;
+}
+/* ------------------------------------------- */
+
+.chart-panel {
+  flex: 1 1 48%;
+  min-width: 300px;
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.chart-container {
+  flex: 1; 
+  min-width: 320px; 
+  max-width: 100%;
+  min-height: 420px; 
+  text-align: center;
+  box-sizing: border-box;
+  background-color: transparent;
+  padding: 1rem; 
+  border-radius: 8px;
+}
+
+svg.pie { width: 100%; max-width: 360px; height: auto; display: block; margin: 0 auto; }
+
+:root{
+  --paper: #f4f3ee;
+  --paper-line: #d9d6c9;
+  --ink: #1f2a24;
+  --ink-soft: #5b6259;
+  --card-shadow: 0 1px 0 rgba(31,42,36,0.06);
+}
+
+#entry-costs,
+#entry-upfront,
+.entry {
+  /* Added !important to overpower the transparent section rule */
+  background-color: #f4f3ee !important; 
+  border: 1px solid var(--paper-line);
+  box-shadow: var(--card-shadow);
+  padding: 1rem;
+  border-radius: 12px;
+}
+
+.entry-head { display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid var(--ink); padding-bottom:0.5rem; margin-bottom:0.9rem; }
+.entry-head h2 { margin:0; font-size:1.2rem; }
+.tag { font-size:0.75rem; color:var(--ink-soft); }
+
+.chart-row { display:flex; align-items:center; gap:1rem; }
+.chart-wrap { flex:0 0 auto; position:relative; }
+svg.pie { display:block; overflow:visible; }
+.pie path { stroke: #fdfcf9; stroke-width: 1.5; cursor: pointer; transition: transform 0.15s ease, filter 0.15s ease; transform-origin: center; transform-box: fill-box; }
+.pie path:hover, .pie path.is-active { filter: brightness(1.08); transform: scale(1.035); }
+.center-total { font-family: 'Arial', sans-serif; font-size:0.95rem; }
+.center-total .amt { font-weight:600; font-size:1.1rem; display:block; }
+.center-total .lbl { font-size:0.62rem; color:var(--ink-soft); }
+.legend { list-style:none; margin:0; padding:0; font-size:0.9rem; }
+.legend li { display:flex; align-items:center; gap:0.5rem; padding:0.25rem 0; font-family: monospace; }
+.legend .lname { flex:1; color:var(--ink); }
+.legend .lpct { color:var(--ink-soft); }
+.tooltip { position:absolute; pointer-events:none; background:var(--ink); color:var(--paper); font-family: monospace; font-size:0.78rem; padding:0.35rem 0.55rem; border-radius:2px; opacity:0; transform:translate(-50%,-120%); white-space:nowrap; transition:opacity 0.1s ease; z-index:5; }
+.tooltip.show { opacity:1; }
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .tables-container { gap: 40px; width: 95%; }
+  .chart-container { min-width: 420px; }
+  #result, #result2 { left: auto; right: auto; width: 100%; max-width: 620px; }
+  svg.pie { max-width: 320px; }
+}
+
+@media (max-width: 768px) {
+  #container1 { flex-direction: column; margin: 1.5rem 1rem 2rem; height: auto; }
+  .left-container, .right-container { width: 100%; padding: 0.5rem; }
+  .buttons-container { gap: 1rem; flex-wrap: wrap; }
+  .tables-container { flex-direction: column; gap: 1rem; width: 100%; margin: 2rem auto; }
+  .item-table { width: 100%; }
+  .chart-container { min-width: auto; max-width: 100%; }
+  #result, #result2 { position: static; left: auto; top: auto; width: 100%; }
+
+  /* Charts section layout - MOBILE */
+  .charts-section {
+    width: 100%;
+    margin: 1rem auto;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;  /* Stacks them top-to-bottom */
+    align-items: center;     /* Centers them horizontally on the screen */
+    gap: 2rem;               /* Adds breathing room between the stacked boxes */
+  }
+
+  .chart-panel,
+  .entry {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .chart-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .chart-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  svg.pie {
+    width: min(72vw, 280px);
+    max-width: 280px;
+    height: auto;
+  }
+
+  .legend {
+    width: 100%;
+    font-size: 0.8rem;
+  }
+
+  .legend li {
+    gap: 0.45rem;
+    align-items: flex-start;
+  }
+
+  .tooltip {
+    max-width: 180px;
+    white-space: normal;
+  }
+}
+
+
+/* Stack pie chart and text when screen is smaller than 1030px */
+@media (max-width: 1030px) {
+  .chart-row {
+    flex-direction: column; /* This forces the text to drop below the chart */
+    align-items: center;    /* Centers them horizontally */
+    gap: 1.5rem;            /* Adds a nice gap between the chart and the text */
+  }
+
+  .legend {
+    width: 100%;
+    max-width: 320px;       /* Keeps the text list from stretching too wide */
+  }
+}

@@ -1,0 +1,81 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: white; /* Gray background */
+}
+    
+    .container{
+      gap: 50px;
+      padding: 10px;
+
+    }
+    
+    
+  
+  .about-content {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Space between image and text */
+    padding-top: 50px;
+    margin: 100px;
+}
+ 
+
+.about img{
+  border-radius: 50px; /* Rounds the corners slightly */
+
+}
+.about-text {
+    flex: 1; /* Allows text to take available space */
+}
+.about-content-below {
+    margin: 100px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-direction: row-reverse; /* This moves the image to the right and text to the left */
+}
+ 
+    
+
+
+.about-img, .about-img-below {
+  border: 5px solid #000000; /* Adds a blue border to images */
+  border-radius: 10px; /* Rounds the corners slightly */
+  padding: 20px; /* Adds spacing inside the border */
+  margin: 20px; /* Ensures images do not touch the edges */
+}
+.about-content, .about-content-below {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Space between image and text */
+}
+.about-text, .about-text-below {
+ 
+  flex: 1; /* Allows text to take available space */
+}
+.about-content-below {
+  margin: 100px; /* Adds space between the second image and the footer */
+}
+
+.about-text{
+  margin: 0 250px 0 200px;
+  padding: 100px 0px;
+}
+
+.about-text-below {
+  margin: 0 250px;
+  padding: 100px 0px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .about-content, .about-content-below { flex-direction: column; margin: 2rem; padding-top: 1rem; }
+  .about-text, .about-text-below { margin: 0; padding: 1.25rem 0; }
+  .about-img, .about-img-below { margin: 0 auto; width: 100%; max-width: 720px; }
+}
+
+@media (max-width: 480px) {
+  .about-content, .about-content-below { gap: 1rem; margin: 1rem; }
+  .about-text { padding: 0.75rem 0; }
+  .about-img, .about-img-below { padding: 8px; }
+}

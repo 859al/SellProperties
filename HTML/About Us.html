@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../Content/Icons/logo.png">
+    <title>About Us</title>
+    <link rel="stylesheet" href="../CSS/AboutUs.css"> <!-- Link to external CSS -->
+    <link rel="stylesheet" href="../CSS/HeaderFooter.css">
+
+</head>
+<body>
+    <header>
+        <div class="container">
+            <!-- Logo on the left -->
+            <div class="logo">
+                <a href="../index.html"><img src="../Content/Icons/logo2.png" alt="Company Logo"></a>
+            </div>
+    
+            <!-- Navigation menu in the center -->
+            <nav>
+                <ul>
+                    <li><a href="./searchProperty.html">Properties</a></li>
+                    <li><a href="#">Financial Tools</a></li>
+                    <li><a href="#">Suggestions</a></li>
+                    <li><a href="./Contact%20Us.html">Contact Us</a></li>
+                </ul>
+            </nav>
+
+            <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    
+            <!-- Login button on the right -->
+            <div class="login-button">
+                <a href="./login%20page.html" class="btn">LOGIN</a>
+            </div>
+        </div>
+    </header>
+   
+    <main>
+        <section class="about">
+            <div class="container">
+                <div class="about-content">
+                    <img src="../Content/Advertisement/aboutUs1.png" alt="About Image 1" class="about-img">
+                    <div class="about-text">
+                        <h2>Who We Are</h2>
+                        <p>We are a company dedicated to providing top-notch solutions to our clients. Our mission is to innovate and lead in our industry.</p>
+                    </div>
+                </div>
+                <div class="about-content-below">
+                    <img src="../Content/Advertisement/aboutUs2.png" alt="About Image 2" class="about-img-below">
+                    <div class="about-text-below">
+                        <h2>Our Vision</h2>
+                        <p>Our vision is to create a future where technology empowers everyone. We strive to push boundaries and set new industry standards.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <footer>
+        <div class="container">
+            <!-- Logo on the left -->
+            <div class="footer-logo logo">
+                <a href="../index.html"><img src="../Content/Icons/logo2text.png" alt="Company Logo"></a>
+            </div>
+    
+            <!-- Centered footer links -->
+            <div class="footer-links">
+                <ul>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="./About%20Us.html">About</a></li>
+                    <li><a href="./Contact%20Us.html">Contact</a></li>
+                    <li><a href="#">Terms</a></li>
+                </ul>
+            </div>
+    
+            <!-- Social media on the right -->
+            <div class="social-media">
+                <a href="https://www.facebook.com" aria-label="Facebook" target="_blank">
+                    <img src="../Content/Icons/facebook.png" alt="Facebook Icon">
+                    <p>Facebook</p>
+                </a>
+                <a href="https://www.instagram.com" aria-label="Instagram" target="_blank">
+                    <img src="../Content/Icons/instagram.png" alt="Instagram Icon">
+                    <p>Instagram</p>
+                </a>
+                <a href="https://www.tiktok.com" aria-label="TikTok" target="_blank">
+                    <img src="../Content/Icons/tiktok.png" alt="TikTok Icon">
+                    <p>TikTok</p>
+                </a>
+                <a href="https://www.twitter.com" aria-label="Twitter" target="_blank">
+                    <img src="../Content/Icons/twitter.png" alt="Twitter Icon">
+                    <p>Twitter</p>
+                </a>
+            </div>
+        </div>
+        <!-- Copyright text -->
+        <div class="copyright">
+            <p>&copy; 2023 Properties for Sale. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navToggle = document.querySelector('.nav-toggle');
+            const nav = document.querySelector('header nav');
+            if (navToggle && nav) {
+                navToggle.addEventListener('click', () => {
+                    const isOpen = nav.classList.toggle('is-open');
+                    navToggle.setAttribute('aria-expanded', String(isOpen));
+                });
+            }
+        });
+    </script>
+</body>
+</html>

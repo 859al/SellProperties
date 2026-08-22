@@ -1,0 +1,365 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+
+}
+
+
+
+
+/* Search Container */
+.search-container {
+  max-width: 800px;
+  top: 80px;
+  left:70px;
+  position: relative;
+  margin: 0 auto 80px;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Search Bar */
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin: 2rem auto;
+  width: 100%;
+  max-width: 550px;
+  padding: 0 1rem;
+}
+
+
+
+
+
+.search-bar input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 2px solid #ccc;
+  border-radius: 999px;
+  font-size: 16px;
+  min-width: 0; /* prevent overflow in flex */
+}
+
+.search-bar button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 999px;
+  background-color: white;
+  color: black;
+  font-size: 16px;
+  cursor: pointer;
+  border: 2px solid #ccc;
+  transition: background-color 0.3s ease, transform 0.15s ease;
+}
+
+.search-bar button:active { transform: translateY(1px); }
+
+
+.search-bar button:hover {
+  background-color: var(--clr-secondary);
+}
+
+/* Filter Options */
+.filter-options {
+  position: absolute;
+  display: none; /* Hidden by default */
+  background-color: #ffffff;
+  padding: 20px;
+  width: auto;
+  max-width: 420px;
+  border: 4px solid #000000;
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  gap: 16px; /* Space between items */
+  left: 55%;
+}
+
+@media (max-width: 768px) {
+  .filter-options { position: static; left: auto; width: 100%; max-width: none; border-radius: 8px; }
+}
+
+
+.filter-group {
+  
+  margin-bottom: 0; /* Remove margin-bottom since gap handles spacing */
+}
+
+#filter-apply button{
+  position: relative;
+  right: -80px;
+  padding: 10px 46px;
+  border-radius: 10px;
+}
+.filter-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.filter-group select {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: all 1.2s ease; /* Smooth transition for all properties */
+}
+
+
+
+
+/* advertiseBoard Advertisement*/
+/* Parent container */
+#advertiseBoard {
+  background-image: url("../Content/Advertisement/Discount.png");
+  background-color: #cccccc;
+  min-height: 320px;
+  height: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  padding: 2rem 0; }
+
+@media (max-width: 768px) {
+  #advertiseBoard { min-height: 200px; padding: 1rem 0; }
+}
+
+/* Child container */
+#displayContent {
+  width: auto;
+  max-width: 360px;
+  background-color: transparent;
+  border-radius: 20px;
+  position: absolute; /* positioned over the advertise board on larger screens */
+  left: 2%;
+  top: 8%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  padding: 1rem;
+  box-sizing: border-box; /* Include padding in width/height */
+}
+
+@media (max-width: 768px) {
+  #displayContent { position: static; margin: 0 auto; left: auto; top: auto; width: 90%; max-width: 420px; border-radius: 12px; }
+}
+
+/* Title styling */
+#displayContent h2 {
+  color: rgb(0, 0, 0);
+  font-size: 24px;
+  margin-bottom: 20px; /* Space between title and button */
+}
+
+/* Button styling */
+#displayContent button {
+  padding: 10px 20px;
+  background-color: white;
+  color: var(--clr-accent);
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#displayContent button:hover {
+  background-color: #f0f0f0; /* Light gray on hover */
+}
+
+
+
+/* Listings Section Styles */
+.listings {
+  padding: 50px 0;
+}
+
+.listings h2 {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.property-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  
+  justify-items: center; /* Centers items within each grid cell */
+}
+
+.property-card {
+  width: 100%;
+  max-width: 360px;
+  background: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.property-card .card-body {
+  padding: 1rem;
+  flex: 1 1 auto;
+}
+
+.property-card img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+.property-card h3 {
+  margin: 15px 0 10px;
+}
+
+.property-card p {
+  margin: 5px 0;
+}
+
+.property-card .btn {
+  display: inline-block;
+  margin: 15px 0;
+  padding: 10px 20px;
+  background: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.property-card .btn:hover {
+  background: #555;
+}
+
+
+/* Testimonials Section */
+.testimonials {
+  padding: 30px 0;
+  background: #f9f9f900; /* Light background for contrast */
+  
+}
+
+
+.testimonial-grid a {
+  text-decoration: none;
+
+}
+
+.testimonials h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 28px;
+  color: #333;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  width: 100%;
+  justify-items: center; /* Centers items within each grid cell */
+
+}
+
+.testimonial-card {
+  padding: 20px;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+
+.testimonial-card .stars {
+  color: #000000; /* Gold color for stars */
+  font-size: 44px;
+  margin-bottom: 15px;
+}
+
+.testimonial-card p {
+  font-size: 16px;
+  font-style: bold;
+  color: #cecece;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.testimonial-card h4 {
+  font-size: 18px;
+  color: #333;
+  margin: 0;
+}
+
+
+
+/* Hero Section Styles */
+.hero {
+  /* Layered gradient + optional image fallback. The gradient is tuned for contrast.
+     Adjust --hero-start / --hero-end in :root (HeaderFooter.css) as needed. */
+  background: linear-gradient(135deg, var(--hero-start), var(--hero-end)), url('hero-bg.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-blend-mode: overlay; /* Helps text sit on top of the image */
+  color: var(--hero-heading-color);
+  padding: 2rem 1rem;
+  text-align: center;
+  margin: 6rem 0 8rem;
+}
+
+/* Ensure hero headings remain readable over the gradient */
+.hero h2 {
+  color: var(--hero-heading-color);
+  margin: 0 0 20px;
+}
+
+.hero form {
+  display: flex;
+  justify-content: center;
+}
+
+.hero input[type="text"] {
+  font-weight: bold;
+  margin-top: 1.25rem;
+  padding: 12px 14px;
+  width: min(100%, 520px);
+  max-width: 100%;
+  border: 2px solid #000; /* Add a black border */
+  border-radius: 6px 6px 6px 6px;
+  outline: none; /* Remove the default browser outline */
+  box-sizing: border-box;
+}
+
+
+.hero button {
+  padding: 12px 18px;
+  border: none;
+  font-weight: bold;
+  background: var(--clr-accent);
+  color: black;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 2px solid #000; /* Add a black border */
+  margin-top: 1rem;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .hero form { display: flex; flex-direction: column; gap: 0.75rem; align-items: stretch; }
+  .hero input[type="text"], .hero button { width: 100%; }
+}
+
+.hero button:hover {
+  background: #000000;
+  color: white;
+  border: 2px solid #ffffff; /* Add a black border */
+
+
+}
+
+
+

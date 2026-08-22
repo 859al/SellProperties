@@ -1,0 +1,625 @@
+:root{
+  /* Theme color tokens - Green scheme */
+  --clr-primary: #4ae683;       /* deep forest green */
+  --clr-secondary: #2AA873;     /* medium green */
+  --clr-accent: #ff5555;        /* light lime accent (CTAs) */
+  --clr-danger: #ff00bf;        /* danger (red) */
+  --clr-warning: #f59e0b;       /* warning (amber) */
+  --clr-white: #ffffff;
+  --text-color: #0f172a;        /* dark navy for text */
+  --muted: #6b7280;             /* muted gray */
+  --border: rgba(15,23,42,0.08);
+
+  /* Typography & spacing */
+  --base-font-size: 16px;
+  --radius: 8px;
+  --space: 1rem;
+
+  /* Hero gradient (green-themed) */
+  --hero-start: linear-gradient(135deg, #072018 0%, var(--clr-primary) 100%);
+  --hero-end: --hero-start; /* kept for compatibility */
+  --hero-heading-color: var(--clr-white);
+
+  /* Main page gradient (green → red) */
+  --page-start: var(--clr-primary); /* deep forest green */
+  --page-end: var(--clr-danger);   /* danger red */
+}
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  font-size: var(--base-font-size, 16px);
+  /* Apply the page gradient at the root so it covers the full document height reliably */
+  background: linear-gradient(180deg, var(--page-start), var(--page-end)) !important;
+  background-repeat: no-repeat !important;
+  background-attachment: scroll !important;
+  background-size: auto !important; /* let the gradient paint according to document height */
+  min-height: 100% !important;
+} 
+
+/* Ensure body does not cover the root gradient with a solid background */
+body { background: transparent !important; }
+body{
+  margin: 0;
+  padding: 0;
+  /* accommodate fixed header: adjust if header height changes */
+  padding-top: calc(60px + 0.5rem);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--text, #222);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  background: transparent; /* let html provide the page gradient */
+  min-height: 100vh;
+}
+
+
+/* Utility helpers */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+.img-responsive { max-width: 100%; height: auto; display: block; }
+.btn { cursor: pointer; }
+
+/* Homepage full-page gradient — apply by adding class="homepage" to <body> on the main page */
+.homepage {
+  background: linear-gradient(180deg, var(--page-start), var(--page-end));
+  background-attachment: scroll; /* allow background to scroll with page */
+  background-size: 100% 100%;
+  min-height: 100vh;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+/* Header Styles */
+header {
+  z-index: 5;
+  background: var(--clr-primary);
+  color: var(--clr-white);
+  padding: 10px 0;
+  position: fixed;
+  left: 0;
+  width: 100%;
+  min-width: 0;
+  top: 0;
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: min(100%, 1400px);
+  margin: 0 auto;
+  padding: 0 12px;
+  position: relative;
+  min-width: 0;
+}
+
+.nav-toggle {
+  display: none;
+  border: 1px solid rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.12);
+  color: var(--clr-white);
+  border-radius: 8px;
+  width: 42px;
+  height: 42px;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+  
+  /* Logo on the left */
+  .logo img {
+    height: 60px; /* Adjust logo size as needed */
+    transition: all 0.6s ease; /* Smooth transition for all properties */
+
+  }
+  
+ 
+  
+  /* Navigation menu in the center */
+  nav ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    display: flex;
+    gap: clamp(8px, 1.5vw, 20px);
+    flex-wrap: wrap;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  nav ul li {
+    display: inline;
+    font-weight: bold;
+    min-width: 0;
+  }
+
+  nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: clamp(12px, 1.2vw, 16px);
+      transition: color 0.18s ease, transform 0.18s ease;
+      white-space: nowrap;
+    }
+  
+    nav ul li a:hover,
+    nav ul li a:focus {
+      color: #000000; /* Change color on hover */
+      transform: scale(1.08);
+      border-radius: 6px;
+    }
+  
+  /* Login button on the right */
+/* Login button on the right */
+.login-button .btn {
+  padding: 10px 60px; /* Initial padding */
+  background: var(--clr-accent); /* Initial background color */
+  color: var(--text-color); /* Text color */
+  text-decoration: none; /* Remove underline */
+  border-radius: 5px; /* Rounded corners */
+  transition: all 1.2s ease; /* Smooth transition for all properties */
+  margin-left: 0px; /* Margin adjustment */
+  font-weight: bold; /* Bold text */
+  border: 6px solid transparent; /* Transparent border to reserve space */
+  box-sizing: border-box; /* Include border in element's dimensions */
+}
+
+/* Hover effect for the login button */
+.login-button .btn:hover {
+  background: #000000; /* Change background color on hover */
+  border: 6px solid rgb(255, 255, 255); /* Add border on hover */
+  border-radius: 50px; /* Increase border radius on hover */
+  transform: scale(1.04); /* Slightly scale up the button without changing padding */
+  color: white;
+}
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+/* Footer Styles */
+footer {
+    background: var(--clr-primary);
+    color: var(--clr-white);
+  }
+  
+  footer .container {
+    display: flex;
+    justify-content: space-between; /* Space out logo, links, and social media */
+    align-items: center; /* Center vertically */
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 80%;
+  }
+  
+  /* Logo on the left */
+  .footer-logo img {
+    height: 120px; /* Adjust logo size as needed */
+    margin-right:0px ;
+  }
+
+  /* Centered footer links */
+  .footer-links ul {
+    display: flex;
+  }
+  
+  .footer-links ul li {
+    display: inline;
+  }
+  
+  .footer-links ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+    margin: 0px 30px;
+    transition: all 1s ease; /* Smooth transition for all properties */
+    padding: 15px;
+  }
+  
+
+  .footer-links ul li a:hover {
+    font-size: 30px;
+    color: #010101; /* Change color on hover */
+    font-weight: bold;
+
+  }
+
+
+
+
+
+
+
+  
+ 
+  /* Social media on the right */
+  .social-media {
+    margin-top: 30px;
+    gap: 0px; /* Space between social media items */
+  }
+  
+  .social-media a {
+    display: flex;
+    align-items: center; /* Align icon and text vertically */
+    color: #fff;
+    text-decoration: none;
+    gap: 10px; /* Space between icon and text */
+    font-size: 20px;
+    transition: all 1.2s ease; /* Smooth transition for all properties */
+  }
+  
+  .social-media a:hover {
+    color: #000000;
+    transform: scale(1.3);
+    
+  }
+  .social-media a:hover img {
+    background-color: #fff;
+    border-radius: 50px;
+    transition: all 1.5s ease; /* Smooth transition for all properties */
+    transform: rotate(720deg); /* Rotate only the image on hover */
+    width: 35px; /* Set icon size */
+
+  }
+
+  .social-media img {
+    width: 30px; /* Set icon size */
+    
+  }
+  
+  /* Copyright text */
+  .copyright {
+    position: relative;
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 10px;
+    bottom: 20px;
+  }
+  
+  .copyright p {
+    font-size: 15px;
+    margin: 0px
+  }
+
+
+
+/* Search Container */
+.search-container {
+  max-width: 900px;
+  margin: 1.5rem auto;
+  padding: 1rem 1rem 2rem;
+  text-align: center;
+  position: relative;
+  width: 100%;
+}
+
+/* Search Bar */
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin: 50px;
+  width: 550px;
+
+}
+
+
+
+.search-bar input {
+  flex: 1;
+  padding: 20px 10px 20px 15px;
+  border: 2px solid #ccc;
+  border-radius: 50px;
+  font-size: 16px;
+}
+#searchButton img {
+  width: 20px;
+  
+}
+
+#searchButton{
+  border-radius: 50px;
+  border: 2px solid #ccc; /* Add border on hover */
+
+}
+
+
+.search-bar button {
+  position: relative;
+  left: -70px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  background-color: white;
+  color: black;
+  font-size: 16px;
+  cursor: pointer;
+  border: 2px solid #ccc; /* Add border on hover */
+  transition: background-color 0.3s ease;
+}
+
+.search-bar button:hover {
+  background-color: #43a047;
+}
+
+/* Filter Options */
+.filter-options {
+  z-index: 2;
+  position: absolute;
+  display: none; /* Hidden by default */
+  background-color: #ffffff;
+  padding: 20px;
+  width: 15%;
+  border: 4px solid #000000;
+  border-radius: 20px;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  gap: 25px; /* Space between items */
+  left: 40%;  
+  width: 350px;
+
+}
+
+
+.filter-group {
+  
+  margin-bottom: 0; /* Remove margin-bottom since gap handles spacing */
+}
+
+#filter-apply button{
+  position: relative;
+  right: -80px;
+  padding: 10px 46px;
+  border-radius: 10px;
+}
+.filter-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.filter-group select {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: all 1.2s ease; /* Smooth transition for all properties */
+}
+
+
+
+
+
+
+
+
+
+
+  
+/* Font Awesome Icons */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  header .container { max-width: 100%; padding: 0 1rem; }
+  header .container { display: flex; flex-direction: row; gap: 1rem; align-items: center; }
+  nav ul { padding-left: 1rem; gap: 12px; }
+  .login-button .btn { padding: 8px 20px; }
+}
+
+@media (max-width: 768px) {
+  .search-container { display: none; }
+
+  body.login-page header .container {
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    padding: 0.45rem 0.65rem;
+    width: min(100%, 100%);
+  }
+
+  body.login-page header nav {
+    display: block !important;
+    width: 100%;
+  }
+
+  body.login-page header nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 10px;
+    padding: 0;
+    width: 100%;
+  }
+
+  body.login-page .nav-toggle {
+    display: none !important;
+  }
+
+  header .container {
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    padding: 0.45rem 0.65rem;
+    width: min(100%, 100%);
+  }
+
+  .logo {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .logo img {
+    height: 42px;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    margin-left: auto;
+  }
+
+  nav {
+    display: none;
+    width: 100%;
+  }
+
+  nav.is-open {
+    display: block;
+  }
+
+  nav ul {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0.5rem 0 0;
+    gap: 6px;
+    align-items: stretch;
+  }
+
+  nav ul li {
+    display: block;
+    width: 100%;
+    margin: 0;
+  }
+
+  nav ul li a {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.7rem;
+    font-size: 15px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.06);
+  }
+
+  .login-button {
+    order: 2;
+    align-self: flex-end;
+    margin-left: 0;
+  }
+
+  .login-button .btn {
+    padding: 8px 18px;
+    font-size: 13px;
+    min-width: 0;
+  }
+
+  footer .container {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+    padding: 1rem 1rem 0.5rem;
+  }
+
+  footer .footer-links ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0;
+  }
+
+  footer .footer-links ul li a {
+    margin: 0;
+    font-size: 15px;
+  }
+
+  .social-media {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  /* Search bar should be fluid on small screens */
+  .search-bar { width: 100% !important; margin: 1rem 0; left: 0; padding: 0; }
+  .search-bar input { padding: 12px; }
+  .search-bar button { position: static; left: 0; }
+
+  /* Filter options become a full-width panel on mobile */
+  .filter-options { position: static; left: auto; width: 100%; border-radius: 12px; padding: 1rem; display: none; }
+}
+
+@media (max-width: 480px) {
+  .logo img { height: 40px; }
+  nav ul li a { font-size: 15px; }
+  .footer-links ul li a { font-size: 16px; margin: 0 12px; }
+  .social-media a { font-size: 18px; }
+}
+
+@media (max-width: 405px) {
+  .search-container {
+    display: none;
+  }
+}
+
+@media (max-width: 300px) {
+  header .container {
+    gap: 0.3rem;
+    padding: 0.35rem 0.45rem;
+  }
+
+  .logo img {
+    height: 30px;
+  }
+
+  .nav-toggle {
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+  }
+
+  .login-button .btn {
+    padding: 7px 12px;
+    font-size: 11px;
+  }
+
+  nav ul li a {
+    font-size: 12px;
+    padding: 0.4rem 0.5rem;
+  }
+}
+
+/* SAFEGUARD: Ensure the page gradient is visible under content and prevent large white blocks
+   from covering the gradient. These overrides are intentionally specific and use !important so
+   they win over accidental white backgrounds in component styles. */
+html, body {
+  background: linear-gradient(180deg, var(--page-start), var(--page-end)) !important;
+  background-repeat: no-repeat !important;
+  background-attachment: scroll !important;
+  background-size: auto !important;
+}
+
+/* Make common large layout containers transparent so the root gradient shows through */
+main, section, .container, .listings, .property-grid {
+  background: transparent !important;
+}
+
+/* Small interactive panels can keep their own backgrounds (cards, modals) */
+.property-card, .filter-options, #advertiseBoard, .testimonial-card {
+  /* keep existing backgrounds for legibility */
+}
