@@ -24,10 +24,6 @@ body {
   background: transparent;
 }
 
-.logo img {
-  position: relative;
-  right: 20px;
-}
 
 .login-button {
   position: relative;
