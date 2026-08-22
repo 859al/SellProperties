@@ -37,59 +37,7 @@
         </div>
     </header>
 
-    <div class="search-container">
-        <!-- Search Bar -->
-        <div class="search-bar">
-            <input type="text" placeholder="Search by city, neighborhood, or ZIP">
-            <button id="searchButton"><img src="../Content/Icons/search.png" alt=""></button>
-            <button id="filterButton">Filter</button>
-        </div>
-
-        <!-- Filter Options (Hidden by Default) -->
-        <div class="filter-options" id="filterOptions">
-            <div class="filter-group">
-                <label for="price">Price</label>
-                <select id="price">
-                    <option value="any">Any</option>
-                    <option value="100000">£100,000</option>
-                    <option value="200000">£200,000</option>
-                    <option value="300000">£300,000</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="type">Type</label>
-                <select id="type">
-                    <option value="any">Any</option>
-                    <option value="house">House</option>
-                    <option value="apartment">Apartment</option>
-                    <option value="villa">Villa</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="beds">Beds</label>
-                <select id="beds">
-                    <option value="any">Any</option>
-                    <option value="1">1+</option>
-                    <option value="2">2+</option>
-                    <option value="3">3+</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label for="baths">Baths</label>
-                <select id="baths">
-                    <option value="any">Any</option>
-                    <option value="1">1+</option>
-                    <option value="2">2+</option>
-                    <option value="3">3+</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <div id="filter-apply">
-                                    <button id="filterApplyButton">Apply</button>
-                </div>
-            </div>
-        </div>
-    </div>
+   
     <script src="../JavaScript/searchBar.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
