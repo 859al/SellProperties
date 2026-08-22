@@ -64,7 +64,7 @@ body{
 
 /* Submit button */
 .contact-submit-button {
-  width: 105%; /* Make the button fill the width of the form */
+  width: 100%; /* Make the button fill the width of the form */
   padding: 1rem;
   background-color: var(--clr-primary);
   color: var(--clr-white);
