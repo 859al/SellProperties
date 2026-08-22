@@ -166,7 +166,7 @@ header .container {
   text-decoration: none; /* Remove underline */
   border-radius: 5px; /* Rounded corners */
   transition: all 1.2s ease; /* Smooth transition for all properties */
-  margin-left: 0px; /* Margin adjustment */
+  margin-right: 20px; /* Margin adjustment */
   font-weight: bold; /* Bold text */
   border: 6px solid transparent; /* Transparent border to reserve space */
   box-sizing: border-box; /* Include border in element's dimensions */
@@ -519,7 +519,6 @@ footer {
 
   .login-button {
     order: 2;
-    align-self: flex-end;
     margin-left: 0;
   }
 
