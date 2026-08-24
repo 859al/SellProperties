@@ -16,11 +16,11 @@ The current website is a **shell / proof of concept**. It is not fully functiona
 
 ### 🏠 Main Website
 
-<a href="https://859al.github.io/SellProperties/" target="_blank" rel="noopener noreferrer">👉 <strong>View the website</strong></a>
+👉 **[View the website](https://859al.github.io/SellProperties/)**
 
 ### 📊 Example Property / Mechanism
 
-<a href="https://859al.github.io/SellProperties/HTML/propirtyPage?property=3" target="_blank" rel="noopener noreferrer">👉 <strong>View an example property</strong></a>
+👉 **[View an example property](https://859al.github.io/SellProperties/HTML/propirtyPage?property=3)**
 
 ## ⚙️ Technology
 
