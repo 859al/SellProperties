@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Update dynamic costs based on property size
         if (sizeSqMeters !== null) {
-            if (option === "refurbish" || option === "demolish" || option === "build" || option === "container") {
+            if (option === "refurbish" || option === "demolish" || option === "build" || option === "container_button") {
                 costs.totalCost = costs.costPerSqm * sizeSqMeters;
             }
         }

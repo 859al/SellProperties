@@ -7,13 +7,12 @@ body {
    Search Container (Structure from 1)
    ================================ */
 .search-container {
-  max-width: 800px;
-  top: 10px;
-  left: 70px;
-  position: relative;
-  margin: 0 auto 80px;
-  padding: 20px;
-  text-align: center;
+    width: 100%;
+    max-width: 1000px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .search-bar {

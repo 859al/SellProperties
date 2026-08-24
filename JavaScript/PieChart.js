@@ -104,14 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to recalculate costs1 dynamically
     function calculateCosts1() {
         return {
-            //MonthlyExpenses: 2000,
-            //InterestRate: 16345,
             MortgageEligibility: futurePropertyValue,
             Deposit: updateTotalExpenses(),
-            //Affordability: getDepositValue(), // Use the value here
-            
-            //MonthlyPayment: getTotalLoanCost(),
-            //OptionName: getOptionName(), // Add the selected option name
         };
     }
 
@@ -119,20 +113,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function displayResults1(data) {
         const resultDiv = document.getElementById('result');
         const items = [
-            
-            //['Monthly Expenses', data.MonthlyExpenses],
-            //[`${data.OptionName} `, data.Affordability], // Use the dynamic name here
-            //['Interest Rate', data.InterestRate],
-            //['Monthly Payment', data.MonthlyPayment],
             ['Future Price', data.MortgageEligibility],
             ['Total Expences', data.Deposit],
         ];
 
-        // Calculate the total revenue
-        //const totalRevenue = items.reduce((sum, [_, value]) => sum + (isNaN(value) ? 0 : value), 0);
         const totalRevenue = data.MortgageEligibility - data.Deposit
    
-        
         // Create HTML for the results
         resultDiv.innerHTML = `
             <h3>Total Revenue</h3>
@@ -164,79 +150,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function buildPieSection(prefix, data) {
-        // data: { palette: [...], rows: [{label, value}, ...] }
         const total = data.rows.reduce((s, r) => s + r.value, 0);
         const svg = document.getElementById(`pie-${prefix}`);
         const legend = document.getElementById(`legend-${prefix}`);
         const tooltip = document.getElementById(`tooltip-${prefix}`);
         if (!svg || !legend) return; // defensive
 
-        // clear existing
         while (svg.firstChild) svg.removeChild(svg.firstChild);
         while (legend.firstChild) legend.removeChild(legend.firstChild);
 
         const cx = 100, cy = 100, r = 92;
         let angle = 0;
 
-            // If there's no data (total === 0), render a neutral placeholder and populate legend with 0s
-            if (!total || total <= 0) {
-                // neutral full circle background
-                const bg = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                bg.setAttribute('cx', cx);
-                bg.setAttribute('cy', cy);
-                bg.setAttribute('r', r);
-                bg.setAttribute('fill', '#eee');
-                svg.appendChild(bg);
+        if (!total || total <= 0) {
+            const bg = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            bg.setAttribute('cx', cx);
+            bg.setAttribute('cy', cy);
+            bg.setAttribute('r', r);
+            bg.setAttribute('fill', '#eee');
+            svg.appendChild(bg);
 
-                // donut hole + center label
-                const hole = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                hole.setAttribute('cx', cx); hole.setAttribute('cy', cy); hole.setAttribute('r', 52);
-                hole.setAttribute('fill', '#fdfcf9');
-                svg.appendChild(hole);
-
-                const fo = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
-                fo.setAttribute('x', cx - 45); fo.setAttribute('y', cy - 22);
-                fo.setAttribute('width', 90); fo.setAttribute('height', 44);
-                fo.innerHTML = `<div class="center-total" xmlns="http://www.w3.org/1999/xhtml" style="text-align:center;"><span class="amt">£0</span><span class="lbl">${prefix === 'costs' ? 'Total' : 'Upfront'}</span></div>`;
-                svg.appendChild(fo);
-
-                // legend entries with zero percentages
-                data.rows.forEach((row, i) => {
-                    const li = document.createElement('li');
-                    li.dataset.index = i;
-                    li.innerHTML = `<span class="swatch" style="background:#ccc"></span><span class="lname">${row.label}</span><span class="lpct">0%</span>`;
-                    legend.appendChild(li);
-                });
-
-                return; // done
-            }
-
-            data.rows.forEach((row, i) => {
-                const color = data.palette[i % data.palette.length];
-                const pct = total > 0 ? row.value / total * 100 : 0;
-                const sweep = pct / 100 * 360;
-
-                // legend
-                const li = document.createElement('li');
-                li.dataset.index = i;
-                li.innerHTML = `<span class="swatch" style="background:${color}"></span><span class="lname">${row.label}</span><span class="lpct">${pct.toFixed(0)}%</span>`;
-                legend.appendChild(li);
-
-                // pie slice
-                // avoid creating degenerate arcs when sweep is 0
-                if (sweep > 0.0001) {
-                    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                    path.setAttribute('d', arcPath(cx, cy, r, angle, angle + sweep));
-                    path.setAttribute('fill', color);
-                    path.dataset.index = i;
-                    path.setAttribute('aria-label', `${row.label}: ${row.value} (${pct.toFixed(1)}%)`);
-                    svg.appendChild(path);
-                }
-
-                angle += sweep;
-            });
-
-            // donut hole + center label
             const hole = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
             hole.setAttribute('cx', cx); hole.setAttribute('cy', cy); hole.setAttribute('r', 52);
             hole.setAttribute('fill', '#fdfcf9');
@@ -245,41 +178,82 @@ document.addEventListener('DOMContentLoaded', () => {
             const fo = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
             fo.setAttribute('x', cx - 45); fo.setAttribute('y', cy - 22);
             fo.setAttribute('width', 90); fo.setAttribute('height', 44);
-            fo.innerHTML = `<div class="center-total" xmlns="http://www.w3.org/1999/xhtml" style="text-align:center;"><span class="amt">£${Math.round(total).toLocaleString()}</span><span class="lbl">${prefix === 'costs' ? 'Total' : 'Upfront'}</span></div>`;
+            fo.innerHTML = `<div class="center-total" xmlns="http://www.w3.org/1999/xhtml" style="text-align:center;"><span class="amt">£0</span><span class="lbl">${prefix === 'costs' ? 'Total' : 'Upfront'}</span></div>`;
             svg.appendChild(fo);
 
-            function setActive(i) {
-                svg.querySelectorAll('path').forEach(p => p.classList.toggle('is-active', p.dataset.index === String(i)));
-                legend.querySelectorAll('li').forEach(l => l.style.opacity = (i === null || l.dataset.index === String(i)) ? '1' : '0.45');
-            }
-
-            function showTooltip(e, i) {
-                const row = data.rows[i];
-                const pct = total > 0 ? (row.value / total * 100).toFixed(1) : '0.0';
-                if (!tooltip) return;
-                tooltip.textContent = `${row.label} — £${row.value.toLocaleString()} (${pct}%)`;
-                tooltip.classList.add('show');
-                const parentBounds = svg.parentElement.getBoundingClientRect();
-                tooltip.style.left = (e.clientX - parentBounds.left) + 'px';
-                tooltip.style.top = (e.clientY - parentBounds.top) + 'px';
-            }
-
-            svg.querySelectorAll('path').forEach(p => {
-                p.addEventListener('mousemove', e => { setActive(p.dataset.index); showTooltip(e, +p.dataset.index); });
-                p.addEventListener('mouseleave', () => { setActive(null); if (tooltip) tooltip.classList.remove('show'); });
-                p.addEventListener('focus', () => setActive(p.dataset.index));
-                p.addEventListener('blur', () => setActive(null));
+            data.rows.forEach((row, i) => {
+                const li = document.createElement('li');
+                li.dataset.index = i;
+                li.innerHTML = `<span class="swatch" style="background:#ccc"></span><span class="lname">${row.label}</span><span class="lpct">0%</span>`;
+                legend.appendChild(li);
             });
 
-            legend.querySelectorAll('li').forEach(li => {
-                li.addEventListener('mouseenter', () => setActive(li.dataset.index));
-                li.addEventListener('mouseleave', () => setActive(null));
-            });
+            return;
         }
 
-    // Replace createChart1/createChart2 usages with SVG builders
+        data.rows.forEach((row, i) => {
+            const color = data.palette[i % data.palette.length];
+            const pct = total > 0 ? row.value / total * 100 : 0;
+            const sweep = pct / 100 * 360;
+
+            const li = document.createElement('li');
+            li.dataset.index = i;
+            li.innerHTML = `<span class="swatch" style="background:${color}"></span><span class="lname">${row.label}</span><span class="lpct">${pct.toFixed(0)}%</span>`;
+            legend.appendChild(li);
+
+            if (sweep > 0.0001) {
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('d', arcPath(cx, cy, r, angle, angle + sweep));
+                path.setAttribute('fill', color);
+                path.setAttribute('data-index', i);
+                path.setAttribute('aria-label', `${row.label}: ${row.value} (${pct.toFixed(1)}%)`);
+                svg.appendChild(path);
+            }
+
+            angle += sweep;
+        });
+
+        const hole = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        hole.setAttribute('cx', cx); hole.setAttribute('cy', cy); hole.setAttribute('r', 52);
+        hole.setAttribute('fill', '#fdfcf9');
+        svg.appendChild(hole);
+
+        const fo = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
+        fo.setAttribute('x', cx - 45); fo.setAttribute('y', cy - 22);
+        fo.setAttribute('width', 90); fo.setAttribute('height', 44);
+        fo.innerHTML = `<div class="center-total" xmlns="http://www.w3.org/1999/xhtml" style="text-align:center;"><span class="amt">£${Math.round(total).toLocaleString()}</span><span class="lbl">${prefix === 'costs' ? 'Total' : 'Upfront'}</span></div>`;
+        svg.appendChild(fo);
+
+        function setActive(i) {
+            svg.querySelectorAll('path').forEach(p => p.classList.toggle('is-active', p.dataset.index === String(i)));
+            legend.querySelectorAll('li').forEach(l => l.style.opacity = (i === null || l.dataset.index === String(i)) ? '1' : '0.45');
+        }
+
+        function showTooltip(e, i) {
+            const row = data.rows[i];
+            const pct = total > 0 ? (row.value / total * 100).toFixed(1) : '0.0';
+            if (!tooltip) return;
+            tooltip.textContent = `${row.label} — £${row.value.toLocaleString()} (${pct}%)`;
+            tooltip.classList.add('show');
+            const parentBounds = svg.parentElement.getBoundingClientRect();
+            tooltip.style.left = (e.clientX - parentBounds.left) + 'px';
+            tooltip.style.top = (e.clientY - parentBounds.top) + 'px';
+        }
+
+        svg.querySelectorAll('path').forEach(p => {
+            p.addEventListener('mousemove', e => { setActive(p.dataset.index); showTooltip(e, +p.dataset.index); });
+            p.addEventListener('mouseleave', () => { setActive(null); if (tooltip) tooltip.classList.remove('show'); });
+            p.addEventListener('focus', () => setActive(p.dataset.index));
+            p.addEventListener('blur', () => setActive(null));
+        });
+
+        legend.querySelectorAll('li').forEach(li => {
+            li.addEventListener('mouseenter', () => setActive(li.dataset.index));
+            li.addEventListener('mouseleave', () => setActive(null));
+        });
+    }
+
     function createChart1(data) {
-        // Build rows from data object
         const rows = [
             { label: 'Mortgage Eligibility', value: Math.round(data.MortgageEligibility || 0) },
             { label: 'Total Expenses', value: Math.round(data.Deposit || 0) }
@@ -288,141 +262,88 @@ document.addEventListener('DOMContentLoaded', () => {
         buildPieSection('costs', { palette, rows });
     }
 
-    // Shared list of items for the second set of calculations (moved above createChart2)
-        const items2 = [
-            ['Mortgage Broker Fees', 'MortgageBroker'],
-            ['EPC Certificate', 'EPC'],
-            ['Legal Fees', 'Legal'],
-            ['Survey Costs', 'Survey'],
-            ['Estate Agent Fees', 'EstateAgent'],
-            ['Mortgage Fees', 'MortgageFees'],
-            ['Deposit', 'Deposit'],
-        ];
+    const items2 = [
+        ['Mortgage Broker Fees', 'MortgageBroker'],
+        ['EPC Certificate', 'EPC'],
+        ['Legal Fees', 'Legal'],
+        ['Survey Costs', 'Survey'],
+        ['Estate Agent Fees (1.75%)', 'EstateAgent'],
+        ['Mortgage Fees', 'MortgageFees'],
+        ['Deposit', 'Deposit'],
+    ];
 
-        function createChart2(data) {
-            // Build rows from items2 mapping
-            const rows = items2.map(([name, key]) => ({ label: name, value: Math.round(data[key] || 0) }));
-            const palette = ['#2f5233', '#45607f', '#b8863b', '#7a6a5b', '#66bb6a', '#d32f2f'];
-            // Debugging: log rows so we can see what's being rendered for the upfront pie
-            console.log('createChart2 rows:', rows, 'total:', rows.reduce((s,r)=>s+r.value,0));
-            buildPieSection('upfront', { palette, rows });
-        }
+    function createChart2(data) {
+        // Map and sort rows from highest to lowest value
+        const rows = items2
+            .map(([name, key]) => ({ label: name, value: Math.round(data[key] || 0) }))
+            .sort((a, b) => b.value - a.value);
 
-    // Function to update everything (recalculates and rebuilds SVG pies)
+        const palette = ['#2f5233', '#45607f', '#b8863b', '#7a6a5b', '#66bb6a', '#d32f2f', '#1b5e20'];
+        buildPieSection('upfront', { palette, rows });
+    }
+
     function updateEverything() {
-        const costs1 = calculateCosts1(); // Recalculate costs1
-        console.log('Updated costs1:', costs1);
-        displayResults1(costs1); // Display the updated results
-        createChart1(costs1); // Update the SVG pie for costs
+        const costs1 = calculateCosts1();
+        displayResults1(costs1);
+        createChart1(costs1);
 
         const costs2 = calculateCosts();
         displayResults2(costs2);
         createChart2(costs2);
     }
 
-    // Initialize the first set of calculations
     updateEverything();
 
-    // Observe changes to the totalCostTd and optionNameTd elements
     const totalCostElement = document.getElementById('totalCostTd');
     const optionNameElement = document.getElementById('optionNameTd');
 
     if (totalCostElement && optionNameElement) {
         const observer = new MutationObserver(() => {
-            updateEverything(); // Recalculate and update everything
+            updateEverything();
         });
 
-        observer.observe(totalCostElement, {
-            childList: true, // Observe changes to the text content
-            characterData: true, // Observe changes to the text content
-            subtree: true // Observe changes in all descendants
-        });
+        observer.observe(totalCostElement, { childList: true, characterData: true, subtree: true });
+        observer.observe(optionNameElement, { childList: true, characterData: true, subtree: true });
 
-        observer.observe(optionNameElement, {
-            childList: true, // Observe changes to the text content
-            characterData: true, // Observe changes to the text content
-            subtree: true // Observe changes in all descendants
-        });
-
-        // Also observe deposit value changes so pies update when depositTd changes
         const depositElement = document.getElementById('depositTd');
         if (depositElement) {
             observer.observe(depositElement, { childList: true, characterData: true, subtree: true });
         }
-
     } else {
         console.error('totalCostTd or optionNameTd element not found!');
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    // Function to format numbers with dots every 3 digits
     function formatNumber(number) {
-        return number.toLocaleString('en-US', { maximumFractionDigits: 0 }); // Use US locale for commas
+        return number.toLocaleString('en-US', { maximumFractionDigits: 0 });
     }
 
-    // Main calculation function for the second set of calculations
     function calculateCosts() {
+        const propertyValue = getProprtyValue();
+
         const costs = {
-            EstateAgent: 3000, // Fixed value for estate agent fees
-            EPC: 10000, // Fixed value for EPC certificate
-            MortgageBroker: 1000, // Fixed value for mortgage broker fees
-            Legal: 10000, // Fixed value for legal fees
-            Survey: 2000, // Fixed value for survey costs
-            MortgageFees: 10000, // Fixed value for mortgage fees
-            Deposit: getDepositValue() // Get deposit value from HTML
+            EstateAgent: propertyValue * 0.0175,
+            EPC: 500,
+            MortgageBroker: 500,
+            Legal: 1800,
+            Survey: 600,
+            MortgageFees: 1000,
+            Deposit: getDepositValue()
         };
 
-        // Calculate the total upfront costs
         costs.totalUpfront = Object.values(costs).reduce((a, b) => a + b, 0);
 
         return costs;
     }
 
-
-
-
-    // Display results for the second set of calculations
     function displayResults2(data) {
         const resultDiv = document.getElementById('result2');
 
-        // Create HTML for the results
+        // Sort items2 from highest to lowest cost based on the data object
+        const sortedItems = [...items2].sort(([, keyA], [, keyB]) => data[keyB] - data[keyA]);
+
         resultDiv.innerHTML = `
             <h3>Upfront Costs Breakdown</h3>
-            ${items2.map(([name, key]) => `
+            ${sortedItems.map(([name, key]) => `
                 <div class="cost-item">
                     <span class="label">${name}:</span>
                     <span class="value">£${formatNumber(data[key])}</span>
@@ -434,5 +355,4 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
         `;
     }
-
 });
