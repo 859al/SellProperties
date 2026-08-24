@@ -1,68 +1,53 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Configuration for the first set of calculations
+document.addEventListener("DOMContentLoaded", function () {
+    const resultsDiv = document.getElementById("results123");
+    const priceElement = document.getElementById("propertyPrice");
+    const detailsElement = document.getElementById("details");
+    const depositPercentage = 5; // Deposit percentage
+    const interestRate = 3.5; // Annual interest rate in percentage
+    const loanTerm = 25; // Loan term in years
 
-    // Function to get the deposit value from the HTML
-    function getDepositValue() {
-        const depositText = document.getElementById('depositTd').textContent;
-        // Remove the currency symbol and non-numeric characters except periods
-        const numericText = depositText.replace(/[^0-9.]/g, '');
-        // Treat periods as thousands separators and remove them
-        const valueWithoutSeparators = numericText.replace(/\./g, '');
-        const value = parseFloat(valueWithoutSeparators);
-
-        if (isNaN(value)) {
-            console.error("Invalid deposit value extracted:", depositText);
-            return 0; // Fallback to 0 if the value is invalid
-        }
-
-        return value;
+    // Function to extract and clean the property price
+    function getPropertyPrice() {
+        const priceText = priceElement.innerText.trim();
+        return parseFloat(priceText.replace(/[^0-9.]/g, '')); // Remove non-numeric characters
     }
 
-    function getProprtyValue() {
-        const depositText = document.getElementById('propertyPriceTd').textContent;
-        // Remove the currency symbol and non-numeric characters except periods
-        const numericText = depositText.replace(/[^0-9.]/g, '');
-        // Treat periods as thousands separators and remove them
-        const valueWithoutSeparators = numericText.replace(/\./g, '');
-        const value = parseFloat(valueWithoutSeparators);
+    // Function to extract size and convert to square meters
+    function getSizeInSquareMeters() {
+        const detailsText = detailsElement.innerText.trim();
+        const sizeMatch = detailsText.match(/(Land Size|Size): ([\d,]+) sq\. ft\./); // Extract size using regex
 
-        if (isNaN(value)) {
-            console.error("Invalid deposit value extracted:", depositText);
-            return 0; // Fallback to 0 if the value is invalid
+        if (!sizeMatch) {
+            console.error("Size not found in the details string.");
+            return { sizeSqMeters: null, isLandSize: false }; // Return null if size is not found
         }
 
-        return value;
+        const sizeType = sizeMatch[1]; // "Land Size" or "Size"
+        const sizeSqFt = parseFloat(sizeMatch[2].replace(/,/g, '')); // Remove commas and convert to number
+        const sizeSqMeters = sizeSqFt * 0.092903; // Convert square feet to square meters
+        return {
+            sizeSqMeters: Math.round(sizeSqMeters * 100) / 100, // Round to 2 decimal places
+            isLandSize: sizeType === "Land Size" // Check if it's Land Size
+        };
     }
 
-    const currentValue = document.getElementById('propertyPriceTd').textContent;
-
-    function x(currentValue, annualGrowthRate, years) {
-        // Calculate future value using the compound growth formula
-        return currentValue * Math.pow(1 + annualGrowthRate, years);
+    // Function to calculate monthly mortgage payment
+    function calculateMonthlyPayment(principal, annualInterestRate, loanTermYears) {
+        const monthlyInterestRate = (annualInterestRate / 100) / 12; // Convert to monthly rate
+        const numberOfPayments = loanTermYears * 12; // Total number of payments
+        const numerator = monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments);
+        const denominator = Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1;
+        return principal * (numerator / denominator); // Monthly payment
     }
 
-    // Input values
-    const currentPropertyValue = 600000; // Current property value in GBP
-    const annualGrowthRate = 0.055; // 5.5% annual growth rate (based on historical data)
-    const years = 25; // Number of years
+    // Function to calculate total mortgage cost
+    function calculateTotalMortgageCost(monthlyPayment, loanTermYears) {
+        return monthlyPayment * loanTermYears * 12; // Total cost over the loan term
+    }
 
-    // Get the future property value
-    const futurePropertyValue = x(currentPropertyValue, annualGrowthRate, years);
-
-    function getTotalLoanCost() {
-        const depositText = document.getElementById('totalMortgageCostTd').textContent;
-        // Remove the currency symbol and non-numeric characters except periods
-        const numericText = depositText.replace(/[^0-9.]/g, '');
-        // Treat periods as thousands separators and remove them
-        const valueWithoutSeparators = numericText.replace(/\./g, '');
-        const value = parseFloat(valueWithoutSeparators);
-
-        if (isNaN(value)) {
-            console.error("Invalid deposit value extracted:", depositText);
-            return 0; // Fallback to 0 if the value is invalid
-        }
-
-        return value;
+    // Function to format numbers with commas as thousand separators
+    function formatNumber(number) {
+        return number.toLocaleString('en-US', { maximumFractionDigits: 0 }); // Use US locale for commas
     }
 
     // Function to get the total work value from the HTML
@@ -74,8 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const depositText = totalCostElement.textContent;
-        console.log("totalCostTd content:", depositText); // Debugging log
-
         const numericText = depositText.replace(/[^0-9.]/g, '');
         const valueWithoutSeparators = numericText.replace(/\./g, '');
         const value = parseFloat(valueWithoutSeparators);
@@ -88,46 +71,142 @@ document.addEventListener('DOMContentLoaded', () => {
         return value;
     }
 
-    function updateTotalExpenses() {
-        return getWorkTotalValue() + getTotalLoanCost();
+    // Helper functions for reading table cells safely
+    function getDepositValue() {
+        const depositText = document.getElementById('depositTd').textContent;
+        const numericText = depositText.replace(/[^0-9.]/g, '');
+        return parseFloat(numericText.replace(/\./g, '')) || 0;
     }
 
-    function getOptionName() {
-        const optionNameElement = document.getElementById('optionNameTd');
-        if (!optionNameElement) {
-            console.error("optionNameTd element not found!");
-            return "Unknown Option"; // Fallback to a default name
+    function getProprtyValue() {
+        const priceText = document.getElementById('propertyPriceTd').textContent;
+        const numericText = priceText.replace(/[^0-9.]/g, '');
+        return parseFloat(numericText.replace(/\./g, '')) || 0;
+    }
+
+    function getTotalLoanCost() {
+        const mortgageText = document.getElementById('totalMortgageCostTd').textContent;
+        const numericText = mortgageText.replace(/[^0-9.]/g, '');
+        return parseFloat(numericText.replace(/\./g, '')) || 0;
+    }
+
+    // Define costs for each option
+    const optionCosts = {
+        refurbish: {
+            name: "Refurbishment",
+            costPerSqm: 1250
+        },
+        demolish: {
+            name: "Demolition",
+            costPerSqm: 75
+        },
+        build: {
+            name: "New Build",
+            costPerSqm: 2250
+        },
+        container_button: {
+            name: "Container Home",
+            costPerSqm: 750
         }
-        return optionNameElement.textContent.trim(); // Get the selected option name
+    };
+
+    // Function to display results
+    function displayResults(option) {
+        const propertyPrice = getPropertyPrice();
+        const { sizeSqMeters, isLandSize } = getSizeInSquareMeters(); // Get size and type
+        const costs = { ...optionCosts[option] }; // Copy option costs
+
+        // Update dynamic costs based on property size
+        if (sizeSqMeters !== null) {
+            if (option === "refurbish" || option === "demolish" || option === "build" || option === "container_button") {
+                costs.totalCost = costs.costPerSqm * sizeSqMeters;
+            }
+        }
+
+        // Update the name, cost per square meter, and total cost in the table
+        document.getElementById("optionNameTd").textContent = costs.name;
+        document.getElementById("costPerSqmTd").textContent = `£${formatNumber(costs.costPerSqm)}`;
+        document.getElementById("totalCostTd").textContent = `£${formatNumber(costs.totalCost)}`;
+
+        // Update the property price and deposit in the first table
+        document.getElementById("propertyPriceTd").textContent = `£${formatNumber(propertyPrice)}`;
+        document.getElementById("depositTd").textContent = `£${formatNumber(propertyPrice * (depositPercentage / 100))}`;
+        document.getElementById("propertySizeTd").textContent = `${sizeSqMeters} m²`;
+
+        // Calculate and update mortgage information
+        const deposit = propertyPrice * (depositPercentage / 100);
+        const loanPrincipal = propertyPrice - deposit; // Loan amount after deposit
+        const monthlyPayment = calculateMonthlyPayment(loanPrincipal, interestRate, loanTerm);
+        const totalMortgageCost = calculateTotalMortgageCost(monthlyPayment, loanTerm);
+
+        // Update the mortgage table
+        document.getElementById("interestRateTd").textContent = `${interestRate}%`;
+        document.getElementById("loanTermTd").textContent = `${loanTerm} years`;
+        document.getElementById("monthlyPaymentTd").textContent = `£${formatNumber(monthlyPayment)}`;
+        document.getElementById("totalMortgageCostTd").textContent = `£${formatNumber(totalMortgageCost)}`;
+
+        // Handle "Not Applicable" for Refurbish and Demolish if it's Land Size
+        if (isLandSize) {
+            const refurbishButton = document.querySelector(".button.refurbish");
+            const demolishButton = document.querySelector(".button.demolish");
+            if (refurbishButton) {
+                refurbishButton.textContent = "Not Applicable";
+                refurbishButton.disabled = true;
+            }
+            if (demolishButton) {
+                demolishButton.textContent = "Not Applicable";
+                demolishButton.disabled = true;
+            }
+        }
+
+        // Trigger chart and text summary updates
+        updateEverything();
     }
 
-    // Function to recalculate costs1 dynamically
+    // Attach event listeners to buttons
+    document.querySelectorAll(".button").forEach(button => {
+        button.addEventListener("click", () => {
+            const option = button.classList[1]; // Get the option from the button's class
+            if (option) displayResults(option); // Display results for the selected option
+        });
+    });
+
+    // --- Growth calculation for future value ---
+    function calculateFutureValue() {
+        const currentVal = getProprtyValue();
+        const annualGrowthRate = 0.055; // 5.5% annual growth rate
+        const years = 25;
+        return currentVal * Math.pow(1 + annualGrowthRate, years);
+    }
+
     function calculateCosts1() {
+        const futurePrice = calculateFutureValue();
+        const totalExpenses = getDepositValue() + getWorkTotalValue() + getTotalLoanCost();
+        const profit = futurePrice - totalExpenses;
         return {
-            MortgageEligibility: futurePropertyValue,
-            Deposit: updateTotalExpenses(),
+            MortgageEligibility: futurePrice,
+            Deposit: totalExpenses,
+            Profit: profit
         };
     }
 
-    // Function to display results
+    // Function to display results for section 1
     function displayResults1(data) {
         const resultDiv = document.getElementById('result');
-        const items = [
-            ['Future Price', data.MortgageEligibility],
-            ['Total Expences', data.Deposit],
-        ];
+        const futurePrice = data.MortgageEligibility;
+        const totalExpenses = data.Deposit;
+        const totalRevenue = data.Profit;
 
-        const totalRevenue = data.MortgageEligibility - data.Deposit
-   
-        // Create HTML for the results
         resultDiv.innerHTML = `
             <h3>Total Revenue</h3>
-            ${items.map(([name, value]) => `
-                <div class="cost-item">
-                    <span class="label">${name}:</span>
-                    <span class="value">£${Math.round(value).toLocaleString()}</span>
-                </div>
-            `).join('')}
+            <div class="cost-item">
+                <span class="label">Future Price in (25 years):</span>
+                <span class="value">£${Math.round(futurePrice).toLocaleString()}</span>
+            </div>
+            <div class="cost-item">
+                <span class="label">Total Expenses:</span>
+                <span class="value">£${Math.round(totalExpenses).toLocaleString()}</span>
+            </div>
             <div class="cost-item total">
                 <span class="label">Profit:</span>
                 <span class="value">£${Math.round(totalRevenue).toLocaleString()}</span>
@@ -135,8 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     }
 
-    // --- SVG pie builder helper functions (replaces canvas charts) ---
-
+    // --- SVG pie builder helper functions ---
     function polar(cx, cy, r, angleDeg) {
         const a = (angleDeg - 90) * Math.PI / 180;
         return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
@@ -154,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const svg = document.getElementById(`pie-${prefix}`);
         const legend = document.getElementById(`legend-${prefix}`);
         const tooltip = document.getElementById(`tooltip-${prefix}`);
-        if (!svg || !legend) return; // defensive
+        if (!svg || !legend) return;
 
         while (svg.firstChild) svg.removeChild(svg.firstChild);
         while (legend.firstChild) legend.removeChild(legend.firstChild);
@@ -164,9 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!total || total <= 0) {
             const bg = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-            bg.setAttribute('cx', cx);
-            bg.setAttribute('cy', cy);
-            bg.setAttribute('r', r);
+            bg.setAttribute('cx', cx); bg.setAttribute('cy', cy); bg.setAttribute('r', r);
             bg.setAttribute('fill', '#eee');
             svg.appendChild(bg);
 
@@ -178,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const fo = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
             fo.setAttribute('x', cx - 45); fo.setAttribute('y', cy - 22);
             fo.setAttribute('width', 90); fo.setAttribute('height', 44);
-            fo.innerHTML = `<div class="center-total" xmlns="http://www.w3.org/1999/xhtml" style="text-align:center;"><span class="amt">£0</span><span class="lbl">${prefix === 'costs' ? 'Total' : 'Upfront'}</span></div>`;
+            fo.innerHTML = `<div class="center-total" xmlns="http://www.w3.org/1999/xhtml" style="text-align:center;"><span class="amt">£0</span><span class="lbl">Upfront</span></div>`;
             svg.appendChild(fo);
 
             data.rows.forEach((row, i) => {
@@ -187,7 +263,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 li.innerHTML = `<span class="swatch" style="background:#ccc"></span><span class="lname">${row.label}</span><span class="lpct">0%</span>`;
                 legend.appendChild(li);
             });
-
             return;
         }
 
@@ -221,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const fo = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject');
         fo.setAttribute('x', cx - 45); fo.setAttribute('y', cy - 22);
         fo.setAttribute('width', 90); fo.setAttribute('height', 44);
-        fo.innerHTML = `<div class="center-total" xmlns="http://www.w3.org/1999/xhtml" style="text-align:center;"><span class="amt">£${Math.round(total).toLocaleString()}</span><span class="lbl">${prefix === 'costs' ? 'Total' : 'Upfront'}</span></div>`;
+        fo.innerHTML = `<div class="center-total" xmlns="http://www.w3.org/1999/xhtml" style="text-align:center;"><span class="amt">£${Math.round(total).toLocaleString()}</span><span class="lbl">Upfront</span></div>`;
         svg.appendChild(fo);
 
         function setActive(i) {
@@ -253,13 +328,97 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function createChart1(data) {
-        const rows = [
-            { label: 'Mortgage Eligibility', value: Math.round(data.MortgageEligibility || 0) },
-            { label: 'Total Expenses', value: Math.round(data.Deposit || 0) }
+    // UPDATED: Bar Chart showing Future Value, Total Expenses, and Profit side-by-side
+// UPDATED: Centered Bar Chart with text legend removed
+    // UPDATED: Bar Chart with percentages centered inside each bar
+    function createBarChart(futurePrice, totalExpenses, profit) {
+        const svg = document.getElementById('pie-costs');
+        const legend = document.getElementById('legend-costs');
+        if (!svg || !legend) return;
+
+        // Clear existing chart elements and right-hand text legend
+        while (svg.firstChild) svg.removeChild(svg.firstChild);
+        while (legend.firstChild) legend.removeChild(legend.firstChild);
+
+        const maxVal = Math.max(futurePrice, 1);
+        const width = 280, height = 200;
+        svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+
+        const barWidth = 45;
+        const maxHeight = 120;
+        
+        const h1 = (futurePrice / maxVal) * maxHeight;
+        const h2 = (totalExpenses / maxVal) * maxHeight;
+        const h3 = (profit / maxVal) * maxHeight;
+
+        const y1 = height - 45 - h1;
+        const y2 = height - 45 - h2;
+        const y3 = height - 45 - h3;
+
+        // Calculate percentages relative to Future Value (100%)
+        const pctFuture = 100;
+        const pctExpenses = Math.round((totalExpenses / futurePrice) * 100);
+        const pctProfit = Math.round((profit / futurePrice) * 100);
+
+        // 1. Future Value Bar (Blue)
+        const rect1 = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect1.setAttribute('x', '35'); rect1.setAttribute('y', y1);
+        rect1.setAttribute('width', barWidth); rect1.setAttribute('height', h1);
+        rect1.setAttribute('fill', '#1E88E5'); rect1.setAttribute('rx', '4');
+        svg.appendChild(rect1);
+
+        // 2. Expenses Bar (Red)
+        const rect2 = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect2.setAttribute('x', '115'); rect2.setAttribute('y', y2);
+        rect2.setAttribute('width', barWidth); rect2.setAttribute('height', h2);
+        rect2.setAttribute('fill', '#e53935'); rect2.setAttribute('rx', '4');
+        svg.appendChild(rect2);
+
+        // 3. Profit Bar (Green)
+        const rect3 = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect3.setAttribute('x', '195'); rect3.setAttribute('y', y3);
+        rect3.setAttribute('width', barWidth); rect3.setAttribute('height', h3);
+        rect3.setAttribute('fill', '#43a047'); rect3.setAttribute('rx', '4');
+        svg.appendChild(rect3);
+
+        // Helper function to add percentage labels inside the bars
+        function addBarLabel(text, x, y, barHeight) {
+            // Only add text inside if the bar is tall enough to fit it cleanly
+            if (barHeight > 25) {
+                const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                txt.setAttribute('x', x); 
+                txt.setAttribute('y', y + barHeight / 2 + 4); // Center vertically
+                txt.setAttribute('font-size', '11'); 
+                txt.setAttribute('font-weight', 'bold');
+                txt.setAttribute('text-anchor', 'middle');
+                txt.setAttribute('fill', '#ffffff'); // White text for contrast inside colored bars
+                txt.textContent = text;
+                svg.appendChild(txt);
+            }
+        }
+
+        addBarLabel(`${pctFuture}%`, 57, y1, h1);
+        addBarLabel(`${pctExpenses}%`, 137, y2, h2);
+        addBarLabel(`${pctProfit}%`, 217, y3, h3);
+
+        // Centered Labels under bars
+        const labels = [
+            { text: 'Future Value', x: '57' },
+            { text: 'Expenses', x: '137' },
+            { text: 'Profit', x: '217' }
         ];
-        const palette = ['#b71c1c', '#2e7d32', '#ff7043', '#ffc107', '#1b5e20'];
-        buildPieSection('costs', { palette, rows });
+
+        labels.forEach(l => {
+            const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            txt.setAttribute('x', l.x); txt.setAttribute('y', '175');
+            txt.setAttribute('font-size', '11'); txt.setAttribute('text-anchor', 'middle');
+            txt.setAttribute('fill', '#333'); txt.textContent = l.text;
+            svg.appendChild(txt);
+        });
+    }
+
+    function createChart1(data) {
+        createBarChart(data.MortgageEligibility, data.Deposit, data.Profit);
     }
 
     const items2 = [
@@ -273,7 +432,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     function createChart2(data) {
-        // Map and sort rows from highest to lowest value
         const rows = items2
             .map(([name, key]) => ({ label: name, value: Math.round(data[key] || 0) }))
             .sort((a, b) => b.value - a.value);
@@ -292,34 +450,11 @@ document.addEventListener('DOMContentLoaded', () => {
         createChart2(costs2);
     }
 
-    updateEverything();
-
-    const totalCostElement = document.getElementById('totalCostTd');
-    const optionNameElement = document.getElementById('optionNameTd');
-
-    if (totalCostElement && optionNameElement) {
-        const observer = new MutationObserver(() => {
-            updateEverything();
-        });
-
-        observer.observe(totalCostElement, { childList: true, characterData: true, subtree: true });
-        observer.observe(optionNameElement, { childList: true, characterData: true, subtree: true });
-
-        const depositElement = document.getElementById('depositTd');
-        if (depositElement) {
-            observer.observe(depositElement, { childList: true, characterData: true, subtree: true });
-        }
-    } else {
-        console.error('totalCostTd or optionNameTd element not found!');
-    }
-
-    function formatNumber(number) {
-        return number.toLocaleString('en-US', { maximumFractionDigits: 0 });
-    }
+    // Initialize with default option
+    displayResults("build");
 
     function calculateCosts() {
         const propertyValue = getProprtyValue();
-
         const costs = {
             EstateAgent: propertyValue * 0.0175,
             EPC: 500,
@@ -329,16 +464,12 @@ document.addEventListener('DOMContentLoaded', () => {
             MortgageFees: 1000,
             Deposit: getDepositValue()
         };
-
         costs.totalUpfront = Object.values(costs).reduce((a, b) => a + b, 0);
-
         return costs;
     }
 
     function displayResults2(data) {
         const resultDiv = document.getElementById('result2');
-
-        // Sort items2 from highest to lowest cost based on the data object
         const sortedItems = [...items2].sort(([, keyA], [, keyB]) => data[keyB] - data[keyA]);
 
         resultDiv.innerHTML = `

@@ -444,7 +444,32 @@ h3 {
   box-sizing: border-box;
   margin: 0 auto 20px auto; 
 }
+/* Center the chart display container and override left-align wrappers */
+.chart-container, #pie-costs {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
 
+/* Fix the internal row container so the standalone chart stays dead-center */
+.chart-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.chart-wrap {
+  flex: 0 0 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+/* Hide the legend list wrapper completely so no blank space or stray elements remain */
+ul#legend-costs {
+  display: none !important;
+}
 .cost-item { display: flex; justify-content: space-between; }
 .cost-item .label { font-weight: bold; }
 .cost-item .value { color: #333; font-weight: bold; }
