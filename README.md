@@ -1,6 +1,6 @@
 # 🏗️ Property Development Profit Analyzer
 
-> **A proof-of-concept platform for discovering and analysing property development opportunities.**
+> **A proof-of-concept platform for discovering and analysing property development opportunities for my college project.**
 
 ## 💡 Concept
 
