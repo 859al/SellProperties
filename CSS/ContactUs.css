@@ -1,0 +1,214 @@
+body {
+  background-color: white;
+}
+
+/* General body styles */
+.contact-body {
+  font-family: Arial, sans-serif;
+  background-color: white; 
+}
+
+/* Container for contact form and image */
+.contact-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 6rem; /* From 2 */
+  padding: 6rem; /* From 2 */
+  width: 85%;
+  margin: 2rem auto; 
+  top: -50px; /* From 2 */
+}
+
+/* Contact form styles */
+.contact-form {
+  width: 50%;
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* From 2 */
+  margin-top: 75px; /* From 2 */
+}
+
+.contact-form-heading {
+  font-size: 2.25rem; 
+  font-weight: 600; 
+  text-align: center;
+  color: black; /* From 2 */
+  margin-bottom: 2rem;
+}
+
+/* Form fields */
+.contact-form-field {
+  margin-bottom: 1.5rem; 
+}
+
+.contact-form-label {
+  font-size: 1.125rem; 
+  color: black; 
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.contact-form-input {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #000; /* From 2 */
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box; 
+  resize: none; /* From 2 */
+}
+
+.message {
+  padding: 5rem; /* From 2 */
+}
+
+/* Submit button */
+.contact-submit-button {
+  width: 100%; 
+  padding: 1rem;
+  background-color: var(--clr-accent); /* From 2 */
+  color: rgb(255, 255, 255); /* From 2 */
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.125rem; 
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 2px solid #000; /* From 2 */
+  box-sizing: border-box; 
+}
+
+.contact-submit-button:hover {
+  background-color: #cfff8c; /* From 2 */
+  color: black; /* From 2 */
+}
+
+/* Image section styling */
+.contact-image-container {
+  width: 50%;
+  height: 33rem; /* From 2 */
+  border: 2px solid #000; /* From 2 */
+  border-radius: 8px;
+  margin-top: 10rem; /* From 2 */
+  margin-left: 100px; /* From 2 */
+}
+
+.contact-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.contact-image {
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Three text boxes styling */
+.contact-text-blocks {
+  margin-top: 8rem; /* From 2 */
+  display: flex;
+  justify-content: center;
+  gap: 300px; /* From 2 */
+  position: relative;
+  top: -100px; /* From 2 */
+  right: 20px; /* From 2 */
+}
+
+.contact-text-center {
+  text-align: center;
+}
+
+.contact-text-box {
+  color: black; 
+  font-size: 1.125rem; 
+}
+
+/* Find Us Here section styling */
+.contact-find-us {
+  font-size: 2rem; 
+  font-weight: bold;
+  color: black; 
+  margin-bottom: 1.5rem;
+  margin: 100px auto; 
+  text-align: center;
+  display: block;
+}
+
+.contact-map-container {
+  position: relative;
+  top: -100px; /* From 2 */
+  width: 80%;
+  text-align: center;
+  margin: 2rem auto 0;
+}
+
+.contact-map-image-container { 
+  border-radius: 8px;
+  margin-top: 100px;
+  /* Mask image effect from 2 */
+  -webkit-mask-image: radial-gradient(black, black, transparent 65%);
+  mask-image: radial-gradient(black, black, transparent 65%); 
+}
+
+.contact-map-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+
+.contact-map-image-container img { 
+  border: 2px solid #000; /* From 2 */
+}
+
+/* ========================================================= */
+/* Responsive adjustments (Maintained from 1)                */
+/* These reset the massive gaps/offsets from 2 on mobile     */
+/* ========================================================= */
+
+@media (max-width: 992px) {
+  .contact-container { 
+    flex-direction: column; 
+    gap: 2rem; 
+    padding: 2rem; 
+    top: 0; /* Reset top offset */
+    width: 100%; 
+  }
+  .contact-form {
+    width: 100%;
+    margin: 0; 
+  }
+  .contact-image-container { 
+    width: 100%; 
+    height: auto; 
+    margin-top: 1rem; 
+    margin-left: 0; /* Reset massive left margin */
+  }
+  .contact-text-blocks { 
+    gap: 2rem; /* Reset massive 300px gap */
+    top: 0; /* Reset top offset */
+    right: 0; /* Reset right offset */
+    margin-top: 2rem; 
+  }
+  .contact-map-container { 
+    top: 0; /* Reset top offset */
+    width: 100%; 
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-text-blocks { 
+    flex-direction: column; 
+    gap: 1rem; 
+    margin-top: 1rem; 
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-container { padding: 1rem; }
+  .contact-form-heading { font-size: 1.5rem; margin-top: 2rem; }
+  .contact-submit-button { width: 100%; }
+  .contact-text-blocks { gap: 1rem; flex-direction: column; }
+}

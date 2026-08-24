@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Property Details — Responsive</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../CSS/HeaderFooter.css">
+    <link rel="stylesheet" href="../CSS/propertySelectPaga.css">
+    <link rel="icon" href="../Content/Icons/logo.png">
+</head>
+<body>
+    <div id="main-content">
+    <header>
+        <div class="container">
+            <!-- Logo on the left -->
+            <div class="logo">
+                <a href="../index.html"><img src="../Content/Icons/logo2.png" alt="Company Logo"></a>
+            </div>
+    
+            <!-- Navigation menu in the center -->
+            <nav>
+                <ul>
+                    <li><a href="./searchProperty.html">Properties</a></li>
+                    <li><a href="#">Financial Tools</a></li>
+                    <li><a href="#">Suggestions</a></li>
+                    <li><a href="./Contact%20Us.html">Contact Us</a></li>
+                </ul>
+            </nav>
+
+            <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    
+            <!-- Login button on the right -->
+            <div class="login-button">
+                <a href="./login%20page.html" class="btn">LOGIN</a>
+            </div>
+        </div>
+    </header>
+
+   
+    <script src="../JavaScript/searchBar.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navToggle = document.querySelector('.nav-toggle');
+            const nav = document.querySelector('header nav');
+            if (navToggle && nav) {
+                navToggle.addEventListener('click', () => {
+                    const isOpen = nav.classList.toggle('is-open');
+                    navToggle.setAttribute('aria-expanded', String(isOpen));
+                });
+            }
+        });
+    </script>
+    
+        <!-- All your website content goes here -->
+        
+        
+        <div id="container1">
+            <div class="left-container">
+                            <div class="gallery-wrapper">
+                    <!-- Right side - Image -->
+                    <div class="image active" id="imageContainer">
+                        <img src="../Content/PropertyImages/property-1/image004.jpg" alt="Property Image" id="galleryImage">
+                        <button class="nav-button left" id="prevButton">&#10094;</button>
+                        <button class="nav-button right" id="nextButton">&#10095;</button>
+                    </div>
+                <!-- Left side - Buttons -->
+                    <div class="buttons">
+                        <button id="photosButton">Photos</button>
+                        <button id="floorPlanButton">Floor Plan</button>
+                        <a href="https://www.google.com/maps/place/13+Montague+Rd,+Croydon+CR9+3DU/@51.380417,-0.1075306,19z/data=!4m6!3m5!1s0x487607250e1c1757:0xc69738e42676d8cd!8m2!3d51.3804169!4d-0.1070753!16s%2Fg%2F11t771yzq1?entry=ttu&g_ep=EgoyMDI1MDIxOS4xIKXMDSoASAFQAw%3D%3D" target="_blank"><button>Map</button></a>
+                        <a href="https://www.google.com/maps/place/13+Montague+Rd,+Croydon+CR9+3DU/@51.3805024,-0.1072145,3a,75y,144.39h,104.34t/data=!3m7!1e1!3m5!1scN-HASswwXTqZLorLac8xg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-14.343443290293564%26panoid%3DcN-HASswwXTqZLorLac8xg%26yaw%3D144.38819545629337!7i16384!8i8192!4m6!3m5!1s0x487607250e1c1757:0xc69738e42676d8cd!8m2!3d51.3804169!4d-0.1070753!16s%2Fg%2F11t771yzq1?entry=ttu&g_ep=EgoyMDI1MDIxOS4xIKXMDSoASAFQAw%3D%3D" target="_blank"><button>Street View</button></a>
+                    </div>
+                </div>
+            </div>
+            <div class="right-container">
+                
+                <div id="description">
+                    <h2 id="propertyPrice"></h2>
+                    <p id="location"></p>
+                    <p id="details"></p>
+                    <p id="summary">
+
+                    </p>
+                    <div>
+                    <h3>Key Features:</h3>
+                    <ul id="features">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                    </div>
+                </div>
+                <script src="../JavaScript/PropertySelectPage.js"></script>
+
+                <div id="contactDetails">
+                    <h1>Agent X Y Z</h1>
+                    <div class="button-container">
+                        <button>Call Now! (079454401992)</button>
+                        <button>Email Us</button>
+                    </div>
+                </div>
+
+                <!-- Results and Chart -->
+            </div>
+        </div>
+        <div class="buttons-container">
+            <button class="button refurbish">Refurbish</button>
+            <button class="button demolish">Demolish</button>
+            <button class="button build">Build</button>
+            <button class="button container_button">Container</button>
+            
+
+        </div>
+        <div id="results123">
+            <!-- Results will be dynamically populated here -->
+        </div>
+        <div class="tables-container">
+            <!-- Table 1: Property Information -->
+            <table class="item-table">
+                <thead>
+                    <tr>
+                        <th>Property Information</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Property Price</td><td id="propertyPriceTd">£250,000</td></tr>
+                    <tr><td>Deposit (5%)</td><td id="depositTd">£12,500</td></tr>
+                    <tr><td>Property Size</td><td id="propertySizeTd">120 m²</td></tr>
+                    <tr><td>Location</td><td id="locationTd">London</td></tr>
+                </tbody>
+            </table>
+        
+            <!-- Table 2: Work to Be Done (Dynamically Updated) -->
+            <table class="item-table" id="workTable">
+                <thead>
+                    <tr>
+                        <th>Work to Be Done</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cost Per Square Meter</td>
+                        <td id="costPerSqmTd">£1,250</td>
+                    </tr>
+                    <tr>
+                        <td id="optionNameTd">Refurbishment</td>
+                        <td id="totalCostTd">£1110</td>
+                    </tr>
+                </tbody>
+            </table>
+        
+            <!-- Table 3: Mortgage Information -->
+            <table class="item-table">
+                <thead>
+                    <tr>
+                        <th>Mortgage Information</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Interest Rate</td><td id="interestRateTd">3.5%</td></tr>
+                    <tr><td>Loan Term</td><td id="loanTermTd">25 years</td></tr>
+                    <tr><td>Monthly Payment</td><td id="monthlyPaymentTd">£1,200</td></tr>
+                    <tr><td>Total Mortgage Cost</td><td id="totalMortgageCostTd">£360,000</td></tr>
+                </tbody>
+            </table>
+            <!-- Add this at the end of the body -->
+            <script src="../JavaScript/calculations.js"></script>
+        </div>
+        </div>
+
+
+
+
+
+        </div> <!-- end tables-container -->
+
+        <!-- Charts Section: placed after tables so charts appear below tables -->
+        <section class="charts-section">
+
+            <!-- COST BREAKDOWN (uses SVG pie) -->
+            <section class="entry" id="entry-costs">
+              <div class="entry-head">
+                <h2>Cost Breakdown</h2>
+                <span class="tag">By category</span>
+              </div>
+
+              <div id="result"></div>
+
+              <div class="chart-row">
+                <div class="chart-wrap">
+                  <svg class="pie" id="pie-costs" viewBox="0 0 200 200" width="320" height="320" role="img" aria-label="Cost breakdown pie chart"></svg>
+                  <div class="tooltip" id="tooltip-costs"></div>
+                </div>
+                <ul class="legend" id="legend-costs"></ul>
+              </div>
+            </section>
+
+            <!-- UPFRONT COSTS (uses SVG pie) -->
+            <section class="entry" id="entry-upfront">
+              <div class="entry-head">
+                <h2>Upfront Costs</h2>
+                <span class="tag">By item</span>
+              </div>
+
+              <div id="result2"></div>
+
+              <div class="chart-row">
+                <div class="chart-wrap">
+                  <svg class="pie" id="pie-upfront" viewBox="0 0 200 200" width="320" height="320" role="img" aria-label="Upfront costs pie chart"></svg>
+                  <div class="tooltip" id="tooltip-upfront"></div>
+                </div>
+                <ul class="legend" id="legend-upfront"></ul>
+              </div>
+            </section>
+
+        </section>
+
+        <script src="../JavaScript/PieChart.js"></script>
+
+    <footer>
+        <div class="container">
+            <!-- Logo on the left -->
+            <div class="footer-logo logo">
+                <a href="../index.html"><img src="../Content/Icons/logo2text.png" alt="Company Logo"></a>
+            </div>
+    
+            <!-- Centered footer links -->
+            <div class="footer-links">
+                <ul>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="./About%20Us.html">About</a></li>
+                    <li><a href="./Contact%20Us.html">Contact</a></li>
+                    <li><a href="#">Terms</a></li>
+                </ul>
+            </div>
+    
+            <!-- Social media on the right -->
+            <div class="social-media">
+                <a href="https://www.facebook.com" aria-label="Facebook" target="_blank">
+                    <img src="../Content/Icons/facebook.png" alt="Facebook Icon">
+                    <p>Facebook</p>
+                </a>
+                <a href="https://www.instagram.com" aria-label="Instagram" target="_blank">
+                    <img src="../Content/Icons/instagram.png" alt="Instagram Icon">
+                    <p>Instagram</p>
+                </a>
+                <a href="https://www.tiktok.com" aria-label="TikTok" target="_blank">
+                    <img src="../Content/Icons/tiktok.png" alt="TikTok Icon">
+                    <p>TikTok</p>
+                </a>
+                <a href="https://www.twitter.com" aria-label="Twitter" target="_blank">
+                    <img src="../Content/Icons/twitter.png" alt="Twitter Icon">
+                    <p>Twitter</p>
+                </a>
+            </div>
+        </div>
+        <!-- Copyright text -->
+        <div class="copyright">
+            <p>&copy; 2023 Properties for Sale. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

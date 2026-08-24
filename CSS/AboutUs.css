@@ -1,0 +1,94 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: white; 
+}
+
+.container {
+  gap: 50px;
+  padding: 10px;
+}
+
+.about img {
+  border-radius: 40px; /* From Snippet 2 */
+}
+
+/* =========================================
+   Top Section (Image Left, Text Right)
+   ========================================= */
+.about-content {
+  display: flex;
+  align-items: center;
+  gap: 50px; /* Increased gap to replace the massive margins */
+  padding-top: 50px;
+  margin: 100px;
+}
+
+.about-text {
+  flex: 1; 
+  /* FIXED: Removed the 250px margins that were crushing your text */
+  margin: 0; 
+  padding: 20px 0;
+}
+
+/* =========================================
+   Bottom Section (Image Right, Text Left)
+   ========================================= */
+.about-content-below {
+  display: flex;
+  align-items: center;
+  gap: 50px; /* Increased gap for spacing */
+  flex-direction: row-reverse; 
+  margin: 100px;
+}
+
+.about-text-below {
+  flex: 1;
+  /* FIXED: Removed the 250px margins that were crushing your text */
+  margin: 0; 
+  padding: 20px 0;
+}
+
+/* =========================================
+   Image Styling
+   ========================================= */
+.about-img, .about-img-below {
+  border: 5px solid #ffffff; /* White border from Snippet 2 */
+  border-radius: 10px; 
+  padding: 20px; 
+  margin: 20px; 
+  max-width: 50%; /* Ensures the image doesn't take over the screen */
+}
+
+
+/* =========================================
+   Responsive Adjustments (From Snippet 1)
+   ========================================= */
+@media (max-width: 992px) {
+  .about-content, .about-content-below { 
+    flex-direction: column; 
+    margin: 2rem; 
+    padding-top: 1rem; 
+  }
+  .about-text, .about-text-below { 
+    margin: 0; 
+    padding: 1.25rem 0; 
+  }
+  .about-img, .about-img-below { 
+    margin: 0 auto; 
+    width: 100%; 
+    max-width: 720px; 
+  }
+}
+
+@media (max-width: 480px) {
+  .about-content, .about-content-below { 
+    gap: 1rem; 
+    margin: 1rem; 
+  }
+  .about-text, .about-text-below { 
+    padding: 0.75rem 0; 
+  }
+  .about-img, .about-img-below { 
+    padding: 8px; 
+  }
+}

@@ -1,0 +1,560 @@
+:root {
+  /* Theme color tokens - Adapted to Snippet 2 colors */
+  --clr-primary: #cfff8c;       /* header background */
+  --clr-accent: #575757;        /* login button background */
+  --clr-accent-text: #d0ff8d;   /* login button text */
+  --clr-danger: #ff00bf;        /* kept for structure compatibility */
+  --clr-warning: #f59e0b;       /* kept for structure compatibility */
+  --clr-white: #ffffff;
+  --text-color: #3f3f3f;        /* main text/links */
+  --text-hover: #121212;        /* link hover */
+  --footer-text: #1b2020;       /* footer text */
+  --footer-link: #4d5046;       /* footer links */
+  --muted: #6b7280;             
+  --border: rgba(15,23,42,0.08);
+
+  /* Typography & spacing (From 1) */
+  --base-font-size: 16px;
+  --radius: 8px;
+  --space: 1rem;
+
+  /* Main page gradient (From 2) */
+  --page-bg: linear-gradient(0deg, #cfff8d 0%, #97D9E1 50%, #1b2020 100%);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: var(--base-font-size, 16px);
+  /* Apply the page gradient at the root */
+  background: var(--page-bg) !important;
+  background-repeat: no-repeat !important;
+  background-attachment: scroll !important;
+  background-size: auto !important; 
+  min-height: 100% !important;
+} 
+
+/* Ensure body does not cover the root gradient */
+body { background: transparent !important; }
+body {
+  margin: 0;
+  padding: 0;
+  /* accommodate fixed header */
+  padding-top: calc(60px + 0.5rem);
+  font-family: Arial, sans-serif; /* Font from 2 */
+  color: var(--text-color);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+/* Utility helpers */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+.img-responsive { max-width: 100%; height: auto; display: block; }
+.btn { cursor: pointer; }
+
+/* Homepage full-page gradient */
+.homepage {
+  background: var(--page-bg);
+  background-attachment: scroll; 
+  background-size: 100% 100%;
+  min-height: 100vh;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+
+/* Header Styles */
+header {
+  z-index: 5;
+  background: var(--clr-primary);
+  color: var(--text-color);
+  padding: 10px 0;
+  position: fixed;
+  left: 0;
+  width: 100%;
+  min-width: 0;
+  top: 0;
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: min(100%, 1400px);
+  margin: 0 auto;
+  padding: 0 12px;
+  position: relative;
+  min-width: 0;
+}
+
+/* Updated nav-toggle colors to fit lighter header */
+.nav-toggle {
+  display: none;
+  border: 1px solid rgba(0,0,0,0.3);
+  background: rgba(0,0,0,0.05);
+  color: var(--text-color);
+  border-radius: 8px;
+  width: 42px;
+  height: 42px;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+  
+/* Logo on the left */
+.logo img {
+  height: 60px; 
+  transition: all 0.6s ease; 
+}
+  
+/* Navigation menu in the center */
+nav ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  display: flex;
+  gap: clamp(8px, 1.5vw, 20px);
+  flex-wrap: wrap;
+  justify-content: center;
+  min-width: 0;
+}
+
+nav ul li {
+  display: inline;
+  font-weight: bold;
+  min-width: 0;
+  
+
+}
+
+nav ul li a {
+  color: var(--text-color); /* From 2 */
+  text-decoration: none;
+  font-size: clamp(12px, 1.2vw, 16px);
+  transition: color 0.18s ease, transform 0.18s ease;
+  white-space: nowrap;
+  transition: all 1s ease; 
+}
+
+nav ul li a:hover,
+nav ul li a:focus {
+  color: var(--text-hover); /* From 2 */
+  transform: scale(1.58);
+  padding: 0px 10px;
+}
+  
+/* Login button on the right */
+.login-button .btn {
+  padding: 10px 60px; 
+  background: var(--clr-accent); /* #575757 from 2 */
+  color: var(--clr-accent-text); /* #d0ff8d from 2 */
+  text-decoration: none; 
+  border-radius: 5px; 
+  transition: all 1.2s ease; 
+  margin-right: 20px; 
+  font-weight: bold; 
+  border: 6px solid transparent; 
+  box-sizing: border-box; 
+}
+
+/* Hover effect for the login button */
+.login-button .btn:hover {
+  background: #000000; /* From 2 */
+  border-radius: 10px; 
+  transform: scale(1.04); 
+}
+  
+/* Footer Styles */
+footer {
+  /* Removed background color so gradient shows through like Snippet 2 */
+  background: transparent;
+  color: var(--footer-text);
+}
+  
+footer .container {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 80%;
+}
+  
+/* Logo on the left */
+.footer-logo img {
+  height: 120px; 
+  margin-right:0px ;
+}
+
+/* Centered footer links */
+.footer-links ul {
+  display: flex;
+}
+  
+.footer-links ul li {
+  display: inline;
+}
+  
+.footer-links ul li a {
+  color: var(--footer-link); /* From 2 */
+  text-decoration: none;
+  font-size: 20px;
+  margin: 0px 30px;
+  transition: all 1s ease; 
+}
+
+.footer-links ul li a:hover {
+  color: var(--text-hover); /* From 2 */
+  padding: 0px 30px;
+}
+  
+/* Social media on the right */
+.social-media {
+  margin-top: 30px;
+  gap: 0px; 
+}
+  
+.social-media a {
+  display: flex;
+  align-items: center; 
+  color: var(--footer-link); /* From 2 */
+  text-decoration: none;
+  gap: 10px; 
+  font-size: 20px;
+  transition: all 1.2s ease; 
+}
+  
+.social-media a:hover {
+  color: #000000;
+  transform: scale(1.3);
+}
+
+.social-media a:hover img {
+  background-color: #fff;
+  border-radius: 50px;
+  transition: all 1.5s ease; 
+  transform: rotate(720deg); 
+  width: 35px; 
+}
+
+.social-media img {
+  width: 30px; 
+}
+  
+/* Copyright text */
+.copyright {
+  position: relative;
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 10px;
+  bottom: 20px;
+}
+  
+.copyright p {
+  font-size: 15px;
+  margin: 0px
+}
+
+/* Search Container */
+.search-container {
+  max-width: 900px;
+  margin: 1.5rem auto;
+  padding: 1rem 1rem 2rem;
+  text-align: center;
+  position: relative;
+  width: 100%;
+}
+
+/* Search Bar */
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin: 50px;
+  width: 550px;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 20px 10px 20px 15px;
+  border: 2px solid #ccc;
+  border-radius: 50px;
+  font-size: 16px;
+}
+
+#searchButton img {
+  width: 20px;
+}
+
+#searchButton{
+  border-radius: 50px;
+  border: 2px solid #ccc; 
+}
+
+.search-bar button {
+  position: relative;
+  left: -70px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  background-color: white;
+  color: black;
+  font-size: 16px;
+  cursor: pointer;
+  border: 2px solid #ccc; 
+  transition: background-color 0.3s ease;
+}
+
+.search-bar button:hover {
+  background-color: var(--clr-accent-text); /* From 2 */
+}
+
+/* Filter Options */
+.filter-options {
+  z-index: 2;
+  position: absolute;
+  display: none; /* Hidden by default */
+  background-color: #ffffff;
+  padding: 20px;
+  width: 15%;
+  border: 4px solid #000000;
+  border-radius: 10px;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  gap: 25px; /* Space between items */
+  left: 40%;  
+  width: 350px;
+
+}
+
+.filter-group {
+  margin-bottom: 0; 
+}
+
+#filter-apply button{
+  position: relative;
+  right: -80px;
+  padding: 10px 46px;
+  border-radius: 10px;
+}
+
+.filter-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.filter-group select {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: all 1.2s ease; 
+}
+
+/* Font Awesome Icons */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+/* Responsive Styles (Structure 1 Maintained) */
+@media (max-width: 1024px) {
+  header .container { max-width: 100%; padding: 0 1rem; }
+  header .container { display: flex; flex-direction: row; gap: 1rem; align-items: center; }
+  nav ul { padding-left: 1rem; gap: 12px; }
+  .login-button .btn { padding: 8px 20px; }
+}
+
+@media (max-width: 768px) {
+  .search-container { display: none; }
+
+  body.login-page header .container {
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    padding: 0.45rem 0.65rem;
+    width: min(100%, 100%);
+  }
+
+  body.login-page header nav {
+    display: block !important;
+    width: 100%;
+  }
+
+  body.login-page header nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 10px;
+    padding: 0;
+    width: 100%;
+  }
+
+  body.login-page .nav-toggle {
+    display: none !important;
+  }
+
+  header .container {
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    padding: 0.45rem 0.65rem;
+    width: min(100%, 100%);
+  }
+
+  .logo {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .logo img {
+    height: 42px;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    margin-left: auto;
+  }
+
+  nav {
+    display: none;
+    width: 100%;
+  }
+
+  nav.is-open {
+    display: block;
+  }
+
+  nav ul {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0.5rem 0 0;
+    gap: 6px;
+    align-items: stretch;
+  }
+
+  nav ul li {
+    display: block;
+    width: 100%;
+    margin: 0;
+  }
+
+  nav ul li a {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.7rem;
+    font-size: 15px;
+    border-radius: 8px;
+    background: rgba(0,0,0,0.06); /* Adjusted for light theme */
+  }
+
+  .login-button {
+    order: 2;
+    margin-left: 0;
+  }
+
+  .login-button .btn {
+    padding: 8px 18px;
+    font-size: 13px;
+    min-width: 0;
+  }
+
+  footer .container {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+    padding: 1rem 1rem 0.5rem;
+  }
+
+  footer .footer-links ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0;
+    margin: 0;
+  }
+
+  footer .footer-links ul li a {
+    margin: 0;
+    font-size: 15px;
+  }
+
+  .social-media {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  /* Search bar should be fluid on small screens */
+  .search-bar { width: 100% !important; margin: 1rem 0; left: 0; padding: 0; }
+  .search-bar input { padding: 12px; }
+  .search-bar button { position: static; left: 0; }
+
+  /* Filter options become a full-width panel on mobile */
+  .filter-options { position: static; left: auto; width: 100%; border-radius: 12px; padding: 1rem; display: none; }
+}
+
+@media (max-width: 480px) {
+  .logo img { height: 40px; }
+  nav ul li a { font-size: 15px; }
+  .footer-links ul li a { font-size: 16px; margin: 0 12px; }
+  .social-media a { font-size: 18px; }
+}
+
+@media (max-width: 405px) {
+  .search-container {
+    display: none;
+  }
+}
+
+@media (max-width: 300px) {
+  header .container {
+    gap: 0.3rem;
+    padding: 0.35rem 0.45rem;
+  }
+
+  .logo img {
+    height: 30px;
+  }
+
+  .nav-toggle {
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+  }
+
+  .login-button .btn {
+    padding: 7px 12px;
+    font-size: 11px;
+  }
+
+  nav ul li a {
+    font-size: 12px;
+    padding: 0.4rem 0.5rem;
+  }
+}
+
+/* SAFEGUARD: Ensure the page gradient is visible under content */
+html, body {
+  background: var(--page-bg) !important;
+  background-repeat: no-repeat !important;
+  background-attachment: scroll !important;
+  background-size: auto !important;
+}
+
+/* Make common large layout containers transparent so the root gradient shows through */
+main, section, .container, .listings, .property-grid {
+  background: transparent !important;
+}
+
+/* Small interactive panels can keep their own backgrounds (cards, modals) */
+.property-card, .filter-options, #advertiseBoard, .testimonial-card {
+  /* keep existing backgrounds for legibility */
+}

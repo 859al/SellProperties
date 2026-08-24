@@ -1,0 +1,388 @@
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* ================================
+   Search Container (Structure from 1)
+   ================================ */
+.search-container {
+  max-width: 800px;
+  top: 10px;
+  left: 70px;
+  position: relative;
+  margin: 0 auto 80px;
+  padding: 20px;
+  text-align: center;
+}
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+  margin: 2rem auto;
+  width: 100%;
+  max-width: 550px;
+  padding: 0 1rem;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 2px solid #ccc;
+  border-radius: 999px;
+  font-size: 16px;
+  min-width: 0;
+}
+
+.search-bar button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 999px;
+  background-color: white;
+  color: black;
+  font-size: 16px;
+  cursor: pointer;
+  border: 2px solid #ccc;
+  transition: background-color 0.3s ease, transform 0.15s ease;
+}
+
+.search-bar button:active { transform: translateY(1px); }
+
+.search-bar button:hover {
+  background-color: var(--clr-secondary);
+}
+
+.filter-options {
+  position: absolute;
+  display: none; 
+  background-color: #ffffff;
+  padding: 20px;
+  width: auto;
+  max-width: 420px;
+  border: 4px solid #000000;
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px; 
+  left: 55%;
+}
+
+@media (max-width: 768px) {
+  .filter-options { position: static; left: auto; width: 100%; max-width: none; border-radius: 8px; }
+}
+
+.filter-group {
+  margin-bottom: 0; 
+}
+
+#filter-apply button{
+  position: relative;
+  right: -80px;
+  padding: 10px 46px;
+  border-radius: 10px;
+}
+
+.filter-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.filter-group select {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: all 1.2s ease;
+}
+
+/* ================================
+   Advertise Board 
+   ================================ */
+/* Parent container */
+#advertiseBoard {
+  background-image: url("../Content/Advertisement/Discount.png");
+  /* Color/Mask from 2 */
+  -webkit-mask-image: linear-gradient(to bottom, transparent , black 30%, black 70%, transparent);
+  mask-image: linear-gradient(to bottom, transparent , black 30%, black 70%, transparent);
+  
+  /* Structure from 1 */
+  background-color: #cccccc;
+  min-height: 320px;
+  height: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media (max-width: 768px) {
+  #advertiseBoard { min-height: 200px; padding: 1rem 0; }
+}
+
+/* Child container */
+#displayContent {
+  /* Structure from 1 */
+  width: auto;
+  max-width: 360px;
+  position: absolute; 
+  left: 2%;
+  top: 8%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+  padding: 1rem;
+  box-sizing: border-box; 
+  
+  /* Colors from 2 */
+  background-color: #f9a82500;
+  border-radius: 50px;
+}
+
+@media (max-width: 768px) {
+  #displayContent { position: static; margin: 0 auto; left: auto; top: auto; width: 90%; max-width: 420px; border-radius: 12px; }
+}
+
+#displayContent h2 {
+  color: rgb(0, 0, 0);
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Button styling */
+#displayContent button {
+  /* Structure from 1 */
+  padding: 10px 20px;
+  border: none;
+  
+  /* Colors/Transition from 2 */
+  background-color: #717171;
+  color: #c0ff69;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.9s ease;
+}
+
+#displayContent button:hover {
+  background-color: black; 
+  color: #c0ff69;
+  font-size: 20px;
+}
+
+/* ================================
+   Listings Section 
+   ================================ */
+.listings {
+  padding: 50px 0;
+}
+
+.listings h2 {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.property-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px; /* Adjust spacing between cards */
+  width: 100%;
+}
+
+/* Clean Property Card Container */
+.property-card {
+  width: 100%;
+  max-width: 360px;
+  background-color: #fff;
+  border-radius: 8px; /* Clean, slightly rounded corners */
+  overflow: hidden; /* This forces the top corners of the image to be rounded */
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Subtle resting shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Card Hover Effect */
+.property-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Make sure the link takes up the full card height cleanly */
+.property-card a {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  height: 100%;
+  padding-bottom: 20px; /* Space at the bottom of the card */
+}
+
+/* Image stretches to the very edge */
+.property-card img {
+  width: 100%;
+  height: 240px; /* Keeps all images the same uniform height */
+  object-fit: cover;
+  display: block;
+  margin: 0;
+  border: none;
+  transition: transform 0.5s ease;
+}
+
+/* Subtle image zoom on hover */
+.property-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Typography spacing */
+.property-card h3 {
+  margin: 20px 0 10px;
+  color: #000;
+  font-size: 1.25rem;
+}
+
+.property-card p {
+  margin: 5px 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+
+.property-card .btn:hover {
+  transform: scale(1.1);
+}
+
+/* ================================
+   Testimonials Section 
+   ================================ */
+.testimonials {
+  padding: 30px 0;
+  background: #f9f9f900; 
+}
+
+.testimonial-grid a {
+  text-decoration: none;
+}
+
+.testimonials h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 28px;
+  color: #333;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  width: 100%;
+  justify-items: center; 
+}
+
+.testimonial-card {
+  padding: 20px;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+
+.testimonial-card .stars {
+  color: #000000;
+  font-size: 44px;
+  margin-bottom: 15px;
+}
+
+.testimonial-card p {
+  font-size: 16px;
+  font-weight: bold;
+  
+  /* Color from 2 */
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.testimonial-card h4 {
+  font-size: 18px;
+  color: #333;
+  margin: 0;
+}
+
+/* ================================
+   Hero Section 
+   ================================ */
+.hero {
+  /* Structure from 1 */
+  background: linear-gradient(135deg, var(--hero-start), var(--hero-end)), url('hero-bg.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-blend-mode: overlay; 
+  padding: 2rem 1rem;
+  text-align: center;
+  
+  /* Margins/colors from 2 */
+  margin: 100px 0px 200px;
+  color: #fff;
+}
+
+.hero h2 {
+  color: #000; /* From 2 */
+  margin: 0 0 20px;
+}
+
+.hero form {
+  display: flex;
+  justify-content: center;
+}
+
+.hero input[type="text"] {
+  /* Structure from 1 */
+  width: min(100%, 520px);
+  max-width: 100%;
+  padding: 12px 14px;
+  box-sizing: border-box;
+  margin-top: 1.25rem;
+  outline: none;
+  
+  /* Style from 2 */
+  font-weight: bold;
+  border: 2px solid #000; 
+  border-radius: 5px 0 0 5px; /* Attached to button */
+}
+
+.hero button {
+  /* Structure from 1 */
+  padding: 12px 18px;
+  box-sizing: border-box;
+  margin-top: 1.25rem;
+  cursor: pointer;
+  
+  /* Style from 2 */
+  border: none;
+  font-weight: bold;
+  background: #e6ffbf;
+  color: #3f3f3f;
+  border-radius: 0 5px 5px 0; /* Attached to input */
+  border: 2px solid #000; 
+}
+
+.hero button:hover {
+  background: #c0ff69; /* From 2 */
+  color: black;
+  font-weight: bold;
+}
+
+/* Mobile overrides for Hero */
+@media (max-width: 768px) {
+  .hero form { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 0.75rem; 
+    align-items: stretch; 
+  }
+  .hero input[type="text"], .hero button { 
+    width: 100%; 
+    border-radius: 5px; /* Reset borders when stacked vertically */
+  }
+}
