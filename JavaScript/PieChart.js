@@ -330,30 +330,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // UPDATED: Bar Chart showing Future Value, Total Expenses, and Profit side-by-side
 // UPDATED: Centered Bar Chart with text legend removed
-<<<<<<< HEAD
     // UPDATED: Bar Chart with percentages centered inside each bar
-=======
->>>>>>> 2a6c26b7a17097763e91c903a315f2123b997a78
     function createBarChart(futurePrice, totalExpenses, profit) {
         const svg = document.getElementById('pie-costs');
         const legend = document.getElementById('legend-costs');
         if (!svg || !legend) return;
 
-<<<<<<< HEAD
         // Clear existing chart elements and right-hand text legend
         while (svg.firstChild) svg.removeChild(svg.firstChild);
         while (legend.firstChild) legend.removeChild(legend.firstChild);
 
         const maxVal = Math.max(futurePrice, 1);
         const width = 280, height = 200;
-=======
-        // Clear existing chart elements and the right-hand text legend
-        while (svg.firstChild) svg.removeChild(svg.firstChild);
-        while (legend.firstChild) legend.removeChild(legend.firstChild);
-
-        const maxVal = Math.max(futurePrice, totalExpenses, profit, 1);
-        const width = 280, height = 200; // Expanded width to center the 3 bars nicely
->>>>>>> 2a6c26b7a17097763e91c903a315f2123b997a78
         svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
 
         const barWidth = 45;
@@ -367,14 +355,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const y2 = height - 45 - h2;
         const y3 = height - 45 - h3;
 
-<<<<<<< HEAD
         // Calculate percentages relative to Future Value (100%)
         const pctFuture = 100;
         const pctExpenses = Math.round((totalExpenses / futurePrice) * 100);
         const pctProfit = Math.round((profit / futurePrice) * 100);
 
-=======
->>>>>>> 2a6c26b7a17097763e91c903a315f2123b997a78
         // 1. Future Value Bar (Blue)
         const rect1 = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
         rect1.setAttribute('x', '35'); rect1.setAttribute('y', y1);
@@ -396,7 +381,6 @@ document.addEventListener("DOMContentLoaded", function () {
         rect3.setAttribute('fill', '#43a047'); rect3.setAttribute('rx', '4');
         svg.appendChild(rect3);
 
-<<<<<<< HEAD
         // Helper function to add percentage labels inside the bars
         function addBarLabel(text, x, y, barHeight) {
             // Only add text inside if the bar is tall enough to fit it cleanly
@@ -417,8 +401,6 @@ document.addEventListener("DOMContentLoaded", function () {
         addBarLabel(`${pctExpenses}%`, 137, y2, h2);
         addBarLabel(`${pctProfit}%`, 217, y3, h3);
 
-=======
->>>>>>> 2a6c26b7a17097763e91c903a315f2123b997a78
         // Centered Labels under bars
         const labels = [
             { text: 'Future Value', x: '57' },
@@ -433,11 +415,6 @@ document.addEventListener("DOMContentLoaded", function () {
             txt.setAttribute('fill', '#333'); txt.textContent = l.text;
             svg.appendChild(txt);
         });
-<<<<<<< HEAD
-=======
-
-        // (Legend container left empty intentionally to remove the text block on the right)
->>>>>>> 2a6c26b7a17097763e91c903a315f2123b997a78
     }
 
     function createChart1(data) {
